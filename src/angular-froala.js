@@ -1,0 +1,71 @@
+'use strict';
+
+angular.module('da.froala', []).
+	value('froalaConfig', {}).
+	directive('froala', ['froalaConfig', '$timeout', function(froalaConfig, $timeout) {
+		froalaConfig = froalaConfig || {};
+		var froalaInstances = {};
+		var generatedIds = 0;
+		return {
+			restrict: 'A',
+			require: 'ngModel',
+			scope: {
+				froala : '='
+			},
+			link: function(scope, element, attrs, ngModel) {
+				var defaultOptions = {};
+				var contentChangedCallback;
+				var options = angular.extend(defaultOptions, froalaConfig, scope.froala);
+
+				if(options.contentChangedCallback){
+					contentChangedCallback = options.contentChangedCallback;
+					delete options.contentChangedCallback;
+				}
+
+				// generate an ID if not present
+        if (!attrs.id) {
+          attrs.$set('id', 'froala-' + generatedIds++);
+        }
+
+				var updateView = function () {
+					ngModel.$setViewValue(element.editable('getHTML')[0]);
+					if (!scope.$root.$$phase) {
+						scope.$apply();
+					}
+				};
+
+				options.contentChangedCallback = function () {
+					if(contentChangedCallback)
+						contentChangedCallback();
+					updateView();
+				};
+
+				ngModel.$render = function(){
+					element.editable('setHTML', ngModel.$viewValue || '', false);
+				};
+
+				var froala = element.editable(options).data('fa.editable');
+
+				froala.$element.on('blur keyup change', function(e){
+					updateView();
+				});
+
+				// the froala instance to the options object to make methonds availble in parent scope
+				scope.froala.froala = angular.bind(element, $(attrs.id).editable);
+
+				scope.$watch('froala', function(n, o){
+					for (var key in n) {
+						if (n.hasOwnProperty(key)) {
+							if(n[key] != o[key]){
+								element.editable('option', key, n[key]);
+							}
+						}
+					}
+				}, true);
+
+				scope.$on('$destroy', function(){
+					element.editable('destroy');
+				});
+			}
+		};
+ }]);

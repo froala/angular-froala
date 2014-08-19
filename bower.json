@@ -1,0 +1,28 @@
+{
+  "name": "angular-froala",
+  "version": "1.0.0",
+  "authors": [
+    "Cameron Gallarno <cgallarno@gmail.com>"
+  ],
+  "description": "Angular.js bindings for Froala text editor",
+  "main": "src/angular-froala.js",
+  "keywords": [
+    "angular.js",
+    "froala",
+    "text",
+    "editor",
+    "wysiwyg"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "FroalaWysiwygEditor": "~1.1.7",
+    "angular": "~1.2.22"
+  }
+}
