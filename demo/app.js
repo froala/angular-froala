@@ -1,5 +1,5 @@
 	// create the module and name it myApp
-	var myApp = angular.module('myApp', ['da.froala']).
+	var myApp = angular.module('myApp', ['ngSanitize', 'da.froala']).
 		value('froalaConfig', {
 			inlineMode: false
 		});
@@ -12,7 +12,7 @@
 			placeholder : 'My Placeholder'
 		};
 
-		$scope.froalaAction = function(){
-			$scope.options.froala('focus');
+		$scope.froalaAction = function(action){
+			$scope.options.froala(action);
 		};
 	});
