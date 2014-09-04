@@ -28,7 +28,7 @@ angular.module('da.froala', []).
         }
 
 				var updateView = function () {
-					ngModel.$setViewValue(element.editable('getHTML')[0]);
+					ngModel.$setViewValue(element.editable('getHTML'));
 					if (!scope.$root.$$phase) {
 						scope.$apply();
 					}
