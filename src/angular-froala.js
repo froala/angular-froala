@@ -28,7 +28,18 @@ angular.module('da.froala', []).
         }
 
 				var updateView = function () {
-					ngModel.$setViewValue(element.editable('getHTML'));
+					var returnedHtml = element.editable('getHTML');
+					var theHTML;
+					if(angular.isArray(returnedHtml) && angular.isString(returnedHtml[0])){
+						theHTML = returnedHtml[0];
+					}else if(angular.isString(returnedHtml)){
+						theHTML = returnedHtml;
+					}else{
+						console.error('We recieved an unexpected format for the html');
+						return;
+					}
+
+					ngModel.$setViewValue(theHTML);
 					if (!scope.$root.$$phase) {
 						scope.$apply();
 					}
