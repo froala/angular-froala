@@ -59,6 +59,10 @@ function myCtrl($scope){
 $scope.froalaOptions.froala("getSelection");
 ```
 
+###Displaying Html
+
+Using `ng-bind-html` will render your html on the page but the default angular-sanitize.js will strip out all style tags. Remedy this by including `froala-sanitize.js` instead. example: `<div ng-bind-html="myHtml"></div>`
+
 Congrats all is done!
 
 ## License
