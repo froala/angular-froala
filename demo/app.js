@@ -1,4 +1,4 @@
-	// create the module with global defaults for froala
+	// add the module with global defaults for froala
 	var myApp = angular.module('myApp', ['ngSanitize', 'froala']).
 		value('froalaConfig', {
 			inlineMode: false

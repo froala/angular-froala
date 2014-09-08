@@ -62,7 +62,9 @@ angular.module('froala', []).
 				});
 
 				// the froala instance to the options object to make methonds availble in parent scope
-				scope.froala.froala = angular.bind(element, $(attrs.id).editable);
+				if(scope.froala){
+					scope.froala.froala = angular.bind(element, $(attrs.id).editable);
+				}
 
 				scope.$watch('froala', function(n, o){
 					for (var key in n) {
