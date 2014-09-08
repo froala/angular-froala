@@ -4,15 +4,17 @@ angular-froala provides AngularJS bindings to the froala WYSIWYG editor.
 ## Installation
 
 1. Clone this repo or download the zip.
-2. Run `bower install` or Download the editor from [http://editor.froala.com/](http://editor.froala.com/)
-3. Load the required files into your project
+2. Run `bower install` or Download the editor from [http://editor.froala.com/](http://editor.froala.com/) and jQuery
+3. Load Froala WYSIWYG editor, jquery and the angular-froala files into your project
 	- src/angular-froala.js
 	- src/froala-sanitize.js 
 
 ## Usage
 
-1. Add `froala	` dependency to your Angular project. example: `angular.module('myApp', ['froala'])`.
-2. Create a textarea with the froala directive in your view and give it a model `<textarea froala ng-model="myHtml"><textarea>` where `myHtml` is a variable on `$scope`.
+1. Add the `froala` dependency to your Angular project. example:
+	*      angular.module('myApp', ['froala'])
+2. Create a textarea with the froala directive in your view and give it a model, where `myHtml` is a variable on `$scope`.
+	*      <textarea froala ng-model="myHtml"><textarea> 
 
 ###Options
 
@@ -46,7 +48,7 @@ View a list of all the options avaible in the [docs](http://editor.froala.com/op
 
 ###Methods
 
-To use the methods availible access the editor instance from your froalaOptions object and use it as described in the [method docs](http://editor.froala.com/methods). example:
+To use the methods availible, access the editor instance from your froalaOptions object `$scope.options.froala(method)` and use it as described in the [method docs](http://editor.froala.com/methods). example:
 
 ```javascript
 function myCtrl($scope){
