@@ -1,5 +1,5 @@
 	// create the module with global defaults for froala
-	var myApp = angular.module('myApp', ['ngSanitize', 'da.froala']).
+	var myApp = angular.module('myApp', ['ngSanitize', 'froala']).
 		value('froalaConfig', {
 			inlineMode: false
 		});
@@ -7,7 +7,7 @@
 	// create the controller and inject Angular's $scope
 	myApp.controller('mainController', function($scope) {
 		$scope.options = {
-			placeholder : 'My Placeholder',
+			placeholder : 'My Placeholder'
 		};
 
 		$scope.froalaAction = function(action){

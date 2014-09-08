@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('da.froala', []).
+angular.module('froala', []).
 	value('froalaConfig', {}).
 	directive('froala', ['froalaConfig', '$timeout', function(froalaConfig, $timeout) {
 		froalaConfig = froalaConfig || {};
