@@ -36,7 +36,7 @@
 	Most options can be changed after initialization, view <a href="http://editor.froala.com/options">http://editor.froala.com/options</a> for all options.
 	<div>Placeholder <input type="text" ng-model="options.placeholder">, <a href="" ng-click="froalaAction('focus')">Focus Editor</a></div>
 	<br>
-	<textarea froala="" ng-model="myHtml"></textarea>
+	<textarea froala="options" ng-model="myHtml"></textarea>
 
 	<br><hr><br>
 	<pre>{{ myHtml }}</pre>
