@@ -11,7 +11,6 @@
 		};
 
 		$scope.froalaAction = function(action){
-			console.log('froalaAction', action);
 			$scope.options.froala(action);
 		};
 

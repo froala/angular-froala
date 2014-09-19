@@ -13,6 +13,10 @@ angular.module('froala', []).
 				froala : '='
 			},
 			link: function(scope, element, attrs, ngModel) {
+				if(!(element instanceof jQuery)){
+					throw "Froala requires jQuery, are you loading it before Angular?";
+				}
+
 				var defaultOptions = {};
 				var contentChangedCallback;
 				var options = angular.extend(defaultOptions, froalaConfig, scope.froala);
