@@ -18,11 +18,8 @@
   <script src="../bower_components/FroalaWysiwygEditor/js/plugins/media_manager.min.js"></script>
   <script src="../bower_components/FroalaWysiwygEditor/js/plugins/lists.min.js"></script>
   <script src="../bower_components/FroalaWysiwygEditor/js/plugins/font_family.min.js"></script>
-  <script src="../bower_components/FroalaWysiwygEditor/js/plugins/lists.min.js"></script>
   <script src="../bower_components/FroalaWysiwygEditor/js/plugins/font_size.min.js"></script>
-  <script src="../bower_components/FroalaWysiwygEditor/js/plugins/lists.min.js"></script>
   <script src="../bower_components/FroalaWysiwygEditor/js/plugins/file_upload.min.js"></script>
-  <script src="../bower_components/FroalaWysiwygEditor/js/plugins/lists.min.js"></script>
   <script src="../bower_components/FroalaWysiwygEditor/js/plugins/char_counter.min.js"></script>
 
 <!-- End Froala -->
@@ -40,10 +37,14 @@
 	Most options can be changed after initialization, view <a href="http://editor.froala.com/options">http://editor.froala.com/options</a> for all options.
 	<div>Placeholder <input type="text" ng-model="options.placeholder">, <a href="" ng-click="froalaAction('focus')">Focus Editor</a></div>
 	<br>
-	<textarea froala="options" ng-model="myHtml"></textarea>
+	<textarea froala="options" ng-model="myHtml" froala-event-on-paste="onPaste" froala-event-focus="onEvent" froala-event-indent="onEvent"></textarea>
 
 	<br><hr><br>
 	<pre>{{ myHtml }}</pre>
+
+	<br><hr><br>
+
+	<div ng-bind-html="myHtml"></div>
 
 
 </body>

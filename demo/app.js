@@ -14,4 +14,12 @@
 			$scope.options.froala(action);
 		};
 
+		$scope.onPaste = function(e, editor, html){
+			return 'Hijacked ' + html;
+		}
+
+		$scope.onEvent = function(e, editor, a, b){
+			console.log(e.namespace, a, b);
+		}
+
 	});
