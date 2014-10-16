@@ -1,7 +1,12 @@
 	// add the module with global defaults for froala
 	var myApp = angular.module('myApp', ['ngSanitize', 'froala']).
 		value('froalaConfig', {
-			inlineMode: false
+			inlineMode: false,
+			events : {
+				align : function(e, editor, alignment){
+					console.log(alignment + ' aligned');
+				}
+			}
 		});
 
 	// create the controller and inject Angular's $scope
@@ -19,7 +24,7 @@
 		}
 
 		$scope.onEvent = function(e, editor, a, b){
-			console.log(e.namespace, a, b);
+			console.log('onEvent', e.namespace, a, b);
 		}
 
 	});

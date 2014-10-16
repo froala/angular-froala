@@ -1,4 +1,4 @@
-# angular-froala 
+# angular-froala
 angular-froala provides AngularJS bindings to the froala WYSIWYG editor.
 
 ## Installation
@@ -7,7 +7,7 @@ angular-froala provides AngularJS bindings to the froala WYSIWYG editor.
 2. Run `bower install` or Download the editor from [http://editor.froala.com/](http://editor.froala.com/) and jQuery
 3. Load Froala WYSIWYG editor, jquery and the angular-froala files into your project
 	- src/angular-froala.js
-	- src/froala-sanitize.js 
+	- src/froala-sanitize.js
 
 ## Usage
 
@@ -38,7 +38,7 @@ function myCtrl($scope){
 		buttons : ["bold", "italic", "underline", "sep", "align", "insertOrderedList", "insertUnorderedList"]
 	}
 }
-```	
+```
 _view.html_
 
 ```html
@@ -56,10 +56,12 @@ function myCtrl($scope){
 	$scope.froalaOptions = {
 		buttons : ["bold", "italic", "underline", "sep", "align", "insertOrderedList", "insertUnorderedList"]
 	}
-		
+
 //Use the methods like this
 $scope.froalaOptions.froala("getSelection");
 ```
+###Events
+ - todo
 
 ###Displaying Html
 
