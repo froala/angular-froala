@@ -23,6 +23,7 @@ angular.module('froala', []).
 		var scope = {
 			froala : '='
 		};
+
 		for (var i = 0; i < froalaEvents.length; i++) {
 		   scope[froalaEvents[i]] = '=' + eventNameToSlug(froalaEvents[i]);
 		}
