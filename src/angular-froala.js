@@ -39,7 +39,7 @@ angular.module('froala', []).
 
 				var defaultOptions = {};
 				var contentChangedCallback;
-				var options = jQuery.extend( true, froalaConfig, scope.froala )
+				var options = angular.extend({}, froalaConfig, scope.froala);
 				if(options.contentChangedCallback){
 					contentChangedCallback = options.contentChangedCallback;
 					delete options.contentChangedCallback;
