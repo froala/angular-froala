@@ -86,18 +86,28 @@ angular.module('froala', []).
 
 				var registerEventAndCallback = function(eventName, callback){
 			  	if(eventName && callback){
-			  		element.on('editable.' + eventName, function(event, a, b, c, d, e){
-			  			//change to dynamically apply arguments, when we can support dynamically getting events
-			  			return callback(event, a, b, c, d, e);
-			  		});
+			  		var el;
+			  		var realEventName;
+
+			  		if(froalaEvents.indexOf(eventName) > -1){
+			  			el = element;
+			  			realEventName = 'editable.' + eventName;
+			  		}else{
+			  			el = froala.$element;
+			  			realEventName = eventName;
+			  		}
+
+			  		el.on(realEventName, callback);
 			  	}
 				}
 
 				//register passed events
 				for (var key in attrs) {
 				  if (attrs.hasOwnProperty(key)) {
-				  	var eventName = slugToEventName(key);
-				  	registerEventAndCallback(eventName, scope[eventName]);
+				  	var eventName = slugToEventName(key); //returns false if not an event
+				  	if(eventName){
+				  		registerEventAndCallback(eventName, scope[eventName]);
+				  	}
 				  }
 				}
 
