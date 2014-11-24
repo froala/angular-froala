@@ -1,6 +1,6 @@
 {
   "name": "angular-froala",
-  "version": "1.2.2",
+  "version": "1.2.4",
   "authors": [
     "Cameron Gallarno <cgallarno@gmail.com>",
     "Stefan Neculai <stefan@froala.com>"
@@ -11,6 +11,7 @@
     "angular.js",
     "froala",
     "text",
+    "html",
     "editor",
     "wysiwyg"
   ],
