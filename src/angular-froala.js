@@ -133,7 +133,7 @@ angular.module('froala', []).
 				}, true);
 
 				scope.$on('$destroy', function(){
-					element.editable('destroy');
+					froala['destroy']();
 				});
 			}
 		};
