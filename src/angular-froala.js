@@ -75,7 +75,7 @@ angular.module('froala', []).
 				};
 
 				ngModel.$render = function(){
-					element.editable('setHTML', ngModel.$viewValue || '', false);
+					element.editable('setHTML', ngModel.$viewValue || '', true);
 				};
 
 				var froala = element.editable(options).data('fa.editable');
