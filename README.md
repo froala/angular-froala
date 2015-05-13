@@ -4,8 +4,8 @@ angular-froala provides AngularJS bindings to the froala WYSIWYG editor.
 ## Installation
 
 1. Clone this repo or download the zip.
-2. Run `bower install` or Download the editor from [http://editor.froala.com/](http://editor.froala.com/) and jQuery
-3. Load Froala WYSIWYG editor, jquery and the angular-froala files into your project
+2. Run `bower install` or Download the editor from [http://froala.com/wysiwyg-editor/](http://froala.com/wysiwyg-editor/) and jQuery
+3. Load Froala WYSIWYG editor, jQuery and the angular-froala files into your project
 	- src/angular-froala.js
 	- src/froala-sanitize.js
 
@@ -44,11 +44,11 @@ _view.html_
 ```html
 <textarea froala="froalaOptions" ngModel="myHtml"></textarea>
 ```
-View a list of all the options avaible in the [docs](http://editor.froala.com/options)
+View a list of all the options available in the [docs](http://froala.com/wysiwyg-editor/docs/options)
 
 ###Methods
 
-To use the methods availible, access the editor instance from your froalaOptions object `$scope.options.froala(method)` and use it as described in the [method docs](http://editor.froala.com/methods). example:
+To use the methods available, access the editor instance from your froalaOptions object `$scope.options.froala(method)` and use it as described in the [method docs](http://froala.com/wysiwyg-editor/docs/methods). example:
 
 ```javascript
 function myCtrl($scope){
@@ -73,7 +73,5 @@ Congrats all is done!
 
 The `angular-froala` project is under MIT license.
 
-You may use the editor for non-commercial websites for free under the [Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License](http://creativecommons.org/licenses/by-nc-nd/4.0/).
-
-Froala Editor has [4 different licenses](http://editor.froala.com/download/) for commercial use.
-For details please see [License Agreement](http://editor.froala.com/license).
+Froala Editor has [4 different licenses](http://froala.com/wysiwyg-editor/pricing) for commercial use.
+For details please see [License Agreement](http://froala.com/wysiwyg-editor/terms).

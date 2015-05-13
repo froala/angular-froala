@@ -1,11 +1,11 @@
 {
   "name": "angular-froala",
-  "version": "1.2.6",
+  "version": "1.2.7",
   "authors": [
     "Cameron Gallarno <cgallarno@gmail.com>",
     "Stefan Neculai <stefan@froala.com>"
   ],
-  "description": "Angular.js bindings for Froala text editor.",
+  "description": "Angular.js bindings for Froala WYSIWYG HTML editor.",
   "main": "src/angular-froala.js",
   "keywords": [
     "angular.js",
@@ -30,7 +30,7 @@
     "tests"
   ],
   "dependencies": {
-    "FroalaWysiwygEditor": "1.2.6",
+    "FroalaWysiwygEditor": "1.2.7",
     "angular": "~1.2.22"
   }
 }
