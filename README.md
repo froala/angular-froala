@@ -86,7 +86,7 @@ $scope.froalaOptions = {
 		focus : function(e, editor) {/* ... */}
 	}
 ```
- 
+
 
 ###Displaying Html
 
