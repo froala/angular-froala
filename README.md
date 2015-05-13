@@ -61,7 +61,32 @@ function myCtrl($scope){
 $scope.froalaOptions.froala("getSelection");
 ```
 ###Events
- - todo
+ Events can be used one of two ways as an attribute on the directive, or passed in with the options.
+####Attribute
+_app.js_
+
+```js
+$scope.editorOnFocus = function(e, editor){
+	//Do Something
+}
+```
+_view.html_
+
+```html
+<textarea froala="froalaOptions" ngModel="myHtml" froala-event-focus="editorOnFocus"></textarea>
+```
+###options
+_app.js_
+
+```js
+$scope.froalaOptions = {
+	inlineMode: false,
+	placeholder: "Edit Me",
+	events : {
+		focus : function(e, editor) {/* ... */}
+	}
+```
+ 
 
 ###Displaying Html
 
