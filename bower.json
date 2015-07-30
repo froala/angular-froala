@@ -31,6 +31,7 @@
   ],
   "dependencies": {
     "FroalaWysiwygEditor": "1.2.8",
-    "angular": "~1.2.22"
+    "angular": "~1.2.22",
+    "font-awesome": "4.3.0"
   }
 }
