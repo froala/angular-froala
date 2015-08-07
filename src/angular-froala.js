@@ -1,8 +1,7 @@
-'use strict';
-
 angular.module('froala', []).
 	value('froalaConfig', {}).
 	directive('froala', ['froalaConfig', '$timeout', function(froalaConfig, $timeout) {
+		"use strict"; //Scope strict mode to only this directive
 		froalaConfig = froalaConfig || {};
 		var froalaEvents = ['afterPaste','afterRemoveImage','afterSave','afterUploadPastedImage','align','backColor','badLink','beforeDeleteImage','beforeFileUpload','beforeImageUpload','beforePaste','beforeRemoveImage','beforeSave','blur','bold','cellDeleted','cellHorizontalSplit','cellInsertedAfter','cellInsertedBefore','cellVerticalSplit','cellsMerged','columnDeleted','columnInsertedAfter','columnInsertedBefore','contentChanged','fileError','fileUploaded','focus','fontFamily','fontSize','foreColor','formatBlock','htmlHide','htmlShow','imageAltSet','imageDeleteError','imageDeleteSuccess','imageError','imageFloatedLeft','imageFloatedNone','imageFloatedRight','imageInserted','imageLinkInserted','imageLinkRemoved','imageLoaded','imageReplaced','imagesLoadError','imagesLoaded','indent','initialized','italic','linkInserted','linkRemoved','onPaste','orderedListInserted','outdent','redo','rowDeleted','rowInsertedAbove','rowInsertedBelow','saveError','selectAll','strikeThrough','subscript','superscript','tableDeleted','tableInserted','underline','undo','unorderedListInserted','videoError','videoFloatedLeft','videoFloatedNone','videoFloatedRight','videoInserted','videoRemoved'];
 		var generatedIds = 0;
@@ -14,11 +13,12 @@ angular.module('froala', []).
 				//not presented as a froala event
 				return false;
 			}
-		}
+		};
+
 		var eventNameToSlug = function(eventName){
 			var slug = 'froalaEvent' + eventName.charAt(0).toUpperCase() + eventName.slice(1);
 			return slug;
-		}
+		};
 
 		var scope = {
 			froala : '='
@@ -76,6 +76,7 @@ angular.module('froala', []).
 
 				ngModel.$render = function(){
 					element.editable('setHTML', ngModel.$viewValue || '', true);
+					element.editable('initUndoRedo');
 				};
 
 				var froala = element.editable(options).data('fa.editable');
@@ -99,21 +100,21 @@ angular.module('froala', []).
 
 			  		el.on(realEventName, callback);
 			  	}
-				}
+				};
 
 				//register passed events
-				for (var key in attrs) {
-				  if (attrs.hasOwnProperty(key)) {
-				  	var eventName = slugToEventName(key); //returns false if not an event
+				for (var attrKey in attrs) {
+				  if (attrs.hasOwnProperty(attrKey)) {
+				  	var eventName = slugToEventName(attrKey); //returns false if not an event
 				  	if(eventName){
 				  		registerEventAndCallback(eventName, scope[eventName]);
 				  	}
 				  }
 				}
 
-				for(var key in options.events){
-					if (options.events.hasOwnProperty(key)) {
-						registerEventAndCallback(key, options.events[key]);
+				for(var optKey in options.events){
+					if (options.events.hasOwnProperty(optKey)) {
+						registerEventAndCallback(optKey, options.events[optKey]);
 					}
 				}
 
@@ -133,7 +134,7 @@ angular.module('froala', []).
 				}, true);
 
 				scope.$on('$destroy', function(){
-					froala['destroy']();
+					froala.destroy();
 				});
 			}
 		};
