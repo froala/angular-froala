@@ -1,5 +1,5 @@
 # angular-froala
-angular-froala provides AngularJS bindings to the froala WYSIWYG editor.
+angular-froala provides AngularJS bindings to the froala WYSIWYG editor VERSION 2.
 
 ## Installation
 
