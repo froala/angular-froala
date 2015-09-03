@@ -16,7 +16,7 @@ angular-froala provides AngularJS bindings to the froala WYSIWYG editor.
 1. Add the `froala` dependency to your Angular project. example:
 	* `angular.module('myApp', ['froala'])`
 2. Create a textarea with the froala directive in your view and give it a model, where `myHtml` is a variable on `$scope`.
-	* `<textarea froala ng-model="myHtml"><textarea> `
+	* `<textarea froala ng-model="myHtml"></textarea> `
 
 ###Options
 
