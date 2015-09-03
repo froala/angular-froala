@@ -1,6 +1,8 @@
 # angular-froala
 angular-froala provides AngularJS bindings to the froala WYSIWYG editor.
 
+###Looking for Version 2? Check out the `editorV.2` branch
+
 ## Installation
 
 1. Clone this repo or download the zip.
