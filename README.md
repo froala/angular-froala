@@ -48,7 +48,7 @@ View a list of all the options available in the [docs](https://www.froala.com/wy
 
 ###Methods
 
-To use the methods available, access the editor instance from your froalaOptions object `$scope.options.froalaEditor(method)` and use it as described in the [method docs](http://froala.com/wysiwyg-editor/docs/v2.0/methods). example:
+To use the methods available, access the editor instance from your froalaOptions object `$scope.options.froalaEditor(method)` and use it as described in the [method docs](http://froala.com/wysiwyg-editor/v2.0/docs/methods). example:
 
 ```javascript
 function myCtrl($scope){
@@ -84,5 +84,5 @@ Congrats all is done!
 
 The `angular-froala` project is under MIT license.
 
-Froala Editor has [3 different licenses](http://froala.com/wysiwyg-editor/pricing) for commercial use.
-For details please see [License Agreement](http://froala.com/wysiwyg-editor/terms).
+Froala Editor has [3 different licenses](http://froala.com/wysiwyg-editor/v2.0/pricing) for commercial use.
+For details please see [License Agreement](http://froala.com/wysiwyg-editor/v2.0/terms).
