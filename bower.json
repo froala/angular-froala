@@ -30,7 +30,7 @@
     "tests"
   ],
   "dependencies": {
-    "FroalaWysiwygEditor": "2.0.0-rc.3",
+    "froala-wysiwyg-editor": "2.0.0-rc.3",
     "angular": ">=1.0"
   }
 }
