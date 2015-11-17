@@ -1,30 +1,20 @@
 	// add the module with global defaults for froala
 	var myApp = angular.module('myApp', ['ngSanitize', 'froala']).
 		value('froalaConfig', {
-			inlineMode: false,
-			events : {
-				align : function(e, editor, alignment){
-					console.log(alignment + ' aligned');
-				}
-			}
+			toolbarInline: false,
+			placeholderText: "Edit Your Content Here!"
 		});
 
 	// create the controller and inject Angular's $scope
 	myApp.controller('mainController', function($scope) {
-		$scope.options = {
-			placeholder : 'My Placeholder'
+
+		$scope.titleOptions = {
+			placeholderText : 'Add a Title',
+			charCounterCount: false,
+			toolbarInline: true
 		};
 
-		$scope.froalaAction = function(action){
-			$scope.options.froala(action);
-		};
-
-		$scope.onPaste = function(e, editor, html){
-			//return 'Hijacked ' + html;
-		};
-
-		$scope.onEvent = function(e, editor, a, b){
-			console.log('onEvent', e.namespace, a, b);
-		};
+		$scope.myTitle = '<h1><span style="font-size: 36px;"><span style="font-family: Verdana,Geneva,sans-serif;">My Document\'s Title</span></span></h1>';
+		$scope.myHtml = "";
 
 	});
