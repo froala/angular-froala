@@ -19,7 +19,7 @@ angular.module('froala', []).
 
 				ctrl.init = function () {
 					ctrl.options = angular.extend({}, froalaConfig, scope.froalaOptions);
-					ctrl.listeningEvents = ["keyup", 'froalaEditor']
+					ctrl.listeningEvents = ["keyup", 'froalaEditor'];
 	        if (!attrs.id) {
 	        	// generate an ID if not present
 	          attrs.$set('id', 'froala-' + generatedIds++);
@@ -66,7 +66,6 @@ angular.module('froala', []).
 
 				ctrl.updateModelView = function () {
 					var returnedHtml = element.froalaEditor('html.get');
-
 					if (angular.isString(returnedHtml)){
 						ngModel.$setViewValue(returnedHtml);
 					}
