@@ -2,12 +2,17 @@
 >angular-froala provides AngularJS bindings to the froala WYSIWYG editor VERSION 2.
 
 ##Version 2
-This repository contains bindings for the latest version of the Froala Editor (version 2). Checkout the `editorV.1` branch for support of Version 1 of the editor.
+This repository contains bindings for the latest version of the Froala Editor (version 2). Checkout the `V1` branch for support of Version 1 of the editor.
+
 
 ## Installation
 
 1. Clone this repo or download the zip.
+<<<<<<< HEAD
 2. Run `bower install` or Download the editor from [https://www.froala.com/wysiwyg-editor/](https://www.froala.com/wysiwyg-editor/) and jQuery
+=======
+2. Run `bower install` or Download the editor from [http://froala.com/wysiwyg-editor/](http://froala.com/wysiwyg-editor/) and jQuery
+>>>>>>> 36298a3d34a4507d0ae295fe6c03174016a5f1ea
 3. Load Froala WYSIWYG editor (and all desired plugins), jQuery and the angular-froala files into your project
 	- src/angular-froala.js
 	- src/froala-sanitize.js
@@ -38,7 +43,7 @@ _app.js_
 function myCtrl($scope){
 	$scope.myHtml = "<h1>Hello World</h1>"
 	$scope.froalaOptions = {
-		toolbarButtons : ["bold", "italic", "underline", "sep", "align", "insertOrderedList", "insertUnorderedList"]
+		toolbarButtons : ["bold", "italic", "underline", "|", "align", "formatOL", "formatUL"]
 	}
 }
 ```
@@ -47,21 +52,21 @@ _view.html_
 ```html
 <textarea froala="froalaOptions" ngModel="myHtml"></textarea>
 ```
-View a list of all the options available in the [docs](https://www.froala.com/wysiwyg-editor/v2.0/docs/options)
+View a list of all the options available in the [docs](https://www.froala.com/wysiwyg-editor/docs/options)
 
 ###Methods
 
-To use the methods available, access the editor instance from your froalaOptions object `$scope.options.froalaEditor(method)` and use it as described in the [method docs](http://froala.com/wysiwyg-editor/docs/v2.0/methods). example:
+To use the methods available, access the editor instance from your froalaOptions object `$scope.options.froalaEditor(method)` and use it as described in the [method docs](http://froala.com/wysiwyg-editor/docs/methods). example:
 
 ```javascript
 function myCtrl($scope){
 	$scope.myHtml = "";
 	$scope.froalaOptions = {
-		buttons : ["bold", "italic", "underline", "sep", "align", "insertOrderedList", "insertUnorderedList"]
+		toolbarButtons : ["bold", "italic", "underline", "|", "align", "formatOL", "formatUL"]
 	}
 
 //Use the methods like this
-$scope.froalaOptions.froalaEditor("getSelection");
+$scope.froalaOptions.froalaEditor("selection.get");
 ```
 ###Events
  Events can be passed in with the options, with a key events and object where the key is the event name and the value is the callback function.
@@ -69,7 +74,6 @@ $scope.froalaOptions.froalaEditor("getSelection");
 _app.js_
 ```js
 $scope.froalaOptions = {
-	inlineMode: false,
 	placeholder: "Edit Me",
 	events : {
 		'froalaEditor.focus' : function(e, editor) {/* ... */}
@@ -85,7 +89,7 @@ Congrats all is done!
 
 ## License
 
-The `angular-froala` project is under MIT license.
+The `angular-froala` project is under MIT license. However, in order to use Froala WYSIWYG HTML Editor plugin you should purchase a license for it.
 
 Froala Editor has [3 different licenses](http://froala.com/wysiwyg-editor/pricing) for commercial use.
 For details please see [License Agreement](http://froala.com/wysiwyg-editor/terms).
