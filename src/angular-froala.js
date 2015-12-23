@@ -47,6 +47,11 @@ angular.module('froala', []).
 	        	//This will reset the undo stack everytime the model changes externally. Can we fix this?
 	        	element.froalaEditor('undo.reset');
 	        };
+
+	        ngModel.$isEmpty = function (value) {
+	        	var isEmpty = jQuery(value).text().trim().length <= 0;
+	        	return isEmpty;
+	        };
 				};
 
 				ctrl.initListeners = function () {
