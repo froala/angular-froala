@@ -49,7 +49,7 @@ angular.module('froala', []).
 	        };
 
 	        ngModel.$isEmpty = function (value) {
-	        	var isEmpty = jQuery(value).text().trim().length <= 0;
+	        	var isEmpty = jQuery(jQuery.parseHTML(value)).text().trim().length <= 0;
 	        	return isEmpty;
 	        };
 				};
