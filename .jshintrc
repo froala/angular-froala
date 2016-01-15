@@ -25,6 +25,8 @@
   "globals": {
     "module": true,
     "require": true,
-    "angular": true
+    "angular": true,
+    "inject": true,
+    "sinon": true
   }
 }
