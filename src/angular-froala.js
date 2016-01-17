@@ -7,9 +7,12 @@ directive('froala', ['froalaConfig', function (froalaConfig) {
 
     var scope = {
         froalaOptions: '=froala',
-        init: '@froalaInit'
-
+        initFunction: '&froalaInit'
     };
+
+    // Constants
+    var MANUAL = "manual";
+    var AUTOMATIC = "automatic";
 
     return {
         restrict: 'A',
@@ -17,7 +20,11 @@ directive('froala', ['froalaConfig', function (froalaConfig) {
         scope: scope,
         link: function (scope, element, attrs, ngModel) {
 
-            var ctrl = {};
+            var ctrl = {
+                editorInitialized: false
+            };
+
+            scope.initMode = attrs.froalaInit ? MANUAL : AUTOMATIC;
 
             ctrl.init = function () {
                 ctrl.options = angular.extend({}, froalaConfig, scope.froalaOptions);
@@ -35,12 +42,8 @@ directive('froala', ['froalaConfig', function (froalaConfig) {
                 }
 
                 //init the editor
-                ctrl.froalaEditor = element.froalaEditor(ctrl.options).data('froala.editor').$el;
-                ctrl.initListeners();
-
-                //assign the froala instance to the options object to make methods available in parent scope
-                if (scope.froalaOptions) {
-                    scope.froalaOptions.froalaEditor = angular.bind(element, jQuery(attrs.id).froalaEditor);
+                if (scope.initMode === AUTOMATIC) {
+                    ctrl.createEditor();
                 }
 
                 //Instruct ngModel how to update the froala editor
@@ -56,8 +59,23 @@ directive('froala', ['froalaConfig', function (froalaConfig) {
                 };
             };
 
+            ctrl.createEditor = function () {
+                if (!ctrl.editorInitialized) {
+                    ctrl.froalaElement = element.froalaEditor(ctrl.options).data('froala.editor').$el;
+                    ctrl.froalaEditor = angular.bind(element, element.froalaEditor);
+                    ctrl.initListeners();
+
+                    //assign the froala instance to the options object to make methods available in parent scope
+                    if (scope.froalaOptions) {
+                        scope.froalaOptions.froalaEditor = ctrl.froalaEditor;
+                    }
+
+                    ctrl.editorInitialized = ctrl.froalaEditor ? true : false;
+                }
+            };
+
             ctrl.initListeners = function () {
-                ctrl.froalaEditor.on('keyup', function () {
+                ctrl.froalaElement.on('keyup', function () {
                     ctrl.updateModelView();
                 });
 
@@ -85,6 +103,22 @@ directive('froala', ['froalaConfig', function (froalaConfig) {
                 }
             };
 
+            if (scope.initMode === MANUAL) {
+                var _ctrl = ctrl;
+                var controls = {
+                    initialize: ctrl.createEditor,
+                    destroy: function () {
+                        if (_ctrl.froalaEditor) {
+                            _ctrl.froalaEditor('destroy');
+                            _ctrl.editorInitialized = false;
+                        }
+                    },
+                    getEditor: function () {
+                        return _ctrl.froalaEditor ? _ctrl.froalaEditor : null;
+                    }
+                };
+                scope.initFunction({initControls: controls});
+            }
             ctrl.init();
         }
     };

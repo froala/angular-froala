@@ -1,4 +1,4 @@
-# angular-froala
+​out​# angular-froala
 >angular-froala provides AngularJS bindings to the froala WYSIWYG editor VERSION 2.
 
 ##Version 2
@@ -78,6 +78,22 @@ $scope.froalaOptions = {
 	}
 ```
 
+###Manual Instantiation
+Sometimes you want to control when the Froala Editor will be instantiated. The directive includes a **froala-init** attributes which will provide you with the controls required to initialize and close the editor.
+
+```html
+<div froala froala-init="myControllerFunction(initcontrols)"></div>
+```
+
+Where *MyControllerFunction* is the name of a function in your controller which will receive an object with different methods to control the editor initialization process. It is primordial that the name of the parameter be *initControls* otherwise your function will not receive the controls.
+
+The object received by the function will contain the following methods:
+
+- **initialize**: Call this method to initialize the Froala Editor
+- **destroy**: Call this method to destroy the Froala Editor
+- **getEditor**: Call this method to retrieve the editor that was created. This method will return *null* if the editor was not yet created
+
+Checkout the demo file to see a working example.
 
 ###Displaying Html
 

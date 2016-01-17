@@ -23,10 +23,10 @@ describe("froala", function () {
 
     var compileElement = function (extraSetup) {
         setupFroalaEditorStub();
+        populateScope($rootScope);
         if (extraSetup && typeof extraSetup === 'function') {
             extraSetup();
         }
-        populateScope($rootScope);
 
         element = $compile(elementHtml)($rootScope);
     };
@@ -50,6 +50,15 @@ describe("froala", function () {
             initOnClick: true
         };
         scope.content = '';
+    };
+
+    var createEditorInManualMode = function () {
+        elementHtml = "<div froala='froalaOptions' ng-model='content' froala-init='initEditor(initControls)'></div>";
+        compileElement(function () {
+            $rootScope.initEditor = function (initControls) {
+                $rootScope.initControls = initControls;
+            };
+        });
     };
 
     it('Requires ngModel attribute', function () {
@@ -134,4 +143,74 @@ describe("froala", function () {
         expect(froalaEditorStub.getCall(2).args[0]).toEqual('undo.reset');
 
     });
+
+    it('Allows to register event handlers', function () {
+        var callbackSpy = sinon.spy();
+        compileElement(function () {
+            $rootScope.froalaOptions.events = {
+                'froalaEditor.focus': callbackSpy
+            };
+        });
+
+        element.trigger('froalaEditor.focus');
+
+        expect(callbackSpy.called).toBeTruthy();
+    });
+
+    it('Does not initialize the editor when in manual mode', function () {
+        createEditorInManualMode();
+        expect(froalaEditorStub.called).toBeFalsy();
+    });
+
+
+    it('Manually controls when the editor is instantiated', function () {
+        createEditorInManualMode();
+
+        $rootScope.initControls.initialize();
+
+        expect(froalaEditorStub.called).toBeTruthy();
+    });
+
+    it('Manually controls when the editor is destroyed', function () {
+        createEditorInManualMode();
+
+        $rootScope.initControls.initialize();
+        $rootScope.initControls.destroy();
+
+        expect(froalaEditorStub.args[1][0]).toEqual('destroy');
+    });
+
+    it('Does not re-initialize the editor once instantiated', function () {
+        createEditorInManualMode();
+
+        $rootScope.initControls.initialize();
+        $rootScope.initControls.initialize();
+
+        expect(froalaEditorStub.callCount).toEqual(1);
+    });
+
+    it('Can re-initialize the editor after closing it', function () {
+        createEditorInManualMode();
+
+        $rootScope.initControls.initialize();
+        $rootScope.initControls.destroy();
+        $rootScope.initControls.initialize();
+
+        expect(froalaEditorStub.callCount).toEqual(3); //init, close and init again
+    });
+
+    it('Returns the editor after initialing it', function () {
+        createEditorInManualMode();
+
+        $rootScope.initControls.initialize();
+
+        expect($rootScope.initControls.getEditor()).toBeDefined();
+    });
+
+    it('Returns a NULL editor if it was not manually initialized', function () {
+        createEditorInManualMode();
+
+        expect($rootScope.initControls.getEditor()).toBeNull();
+    });
+
 });
