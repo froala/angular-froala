@@ -14,13 +14,13 @@
 			toolbarInline: true
 		};
 
-        $scope.initialize = function (initControls) {
-            $scope.initControls = initControls;
-            $scope.deleteAll = function() {initControls.getEditor()('html.set', '');};
-        };
+    $scope.initialize = function (initControls) {
+      $scope.initControls = initControls;
+      $scope.deleteAll = function() {initControls.getEditor()('html.set', '');};
+    };
 
 		$scope.myTitle = '<span style="font-family: Verdana,Geneva,sans-serif;">My Document\'s Title</span>';
 		$scope.sample2Text = "";
-        $scope.sample3Text = "";
+    $scope.sample3Text = "";
 
 	});
