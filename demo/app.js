@@ -14,7 +14,13 @@
 			toolbarInline: true
 		};
 
-		$scope.myTitle = '<h1><span style="font-size: 36px;"><span style="font-family: Verdana,Geneva,sans-serif;">My Document\'s Title</span></span></h1>';
-		$scope.myHtml = "";
+    $scope.initialize = function (initControls) {
+      $scope.initControls = initControls;
+      $scope.deleteAll = function() {initControls.getEditor()('html.set', '');};
+    };
+
+		$scope.myTitle = '<span style="font-family: Verdana,Geneva,sans-serif;">My Document\'s Title</span>';
+		$scope.sample2Text = "";
+    $scope.sample3Text = "";
 
 	});

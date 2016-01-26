@@ -60,18 +60,32 @@
   <script src="../src/froala-sanitize.js"></script>
   <script src="../src/angular-froala.js"></script>
   <script src="app.js"></script>
+  <link rel="stylesheet" href="app.css">
 </head>
 
 <!-- define angular controller -->
 <body ng-controller="mainController">
-	<h2>Angular adapter for the Froala WYSIWYG editor</h2>
-	<br>
-	<div froala="titleOptions" ng-model="myTitle"></div>
-	<hr>
-	<textarea froala ng-model="myHtml"></textarea>
-	<br>
-	<h3>Rendered Content:</h3>
-	<div class="fr-view" ng-bind-html="myHtml"></div>
+	<h1>Angular adapter for the Froala WYSIWYG editor</h1>
+    <div class="sample">
+      <h2>Sample 1: Inline Edit</h2>
+      <div froala="titleOptions" ng-model="myTitle"></div>
+    </div>
+
+    <div class="sample">
+      <h2>Sample 2: Full Editor</h2>
+      <textarea id="froala-sample-2" froala ng-model="sample2Text"></textarea>
+      <h4>Rendered Content:</h4>
+      <div class="fr-view" ng-bind-html="sample2Text"></div>
+    </div>
+
+    <div class="sample">
+      <h2>Sample 3: Manual Initialization</h2>
+      <button class="manual" ng-click="initControls.initialize()">Initialize Editor</button>
+      <button ng-click="initControls.destroy()" ng-show="initControls.getEditor() != null">Close Editor</button>
+      <button ng-click="deleteAll()" ng-show="initControls.getEditor() != null">Delete All</button>
+      <div id="froala-sample-3" froala froala-init="initialize(initControls)" ng-model="sample3Text">Check out the <a href="https://www.froala.com/wysiwyg-editor">Froala Editor</a></div>
+    </div>
+
 </body>
 
 </html>

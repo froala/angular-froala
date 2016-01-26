@@ -1,0 +1,32 @@
+{
+  // Enforcing
+  "bitwise": true,
+  "curly": true,
+  "eqeqeq": true,
+  "forin": true,
+  "freeze": true,
+  "latedef": false,
+  "noarg": true,
+  "noempty": true,
+  "undef": true,
+  "unused": true,
+  "loopfunc": true,
+  "maxparams": false,
+  "maxdepth": false,
+  "maxstatements": false,
+  "maxcomplexity": false,
+  "maxlen": false,
+  // Environments
+  "browser": true,
+  "devel": true,
+  "jasmine": true,
+  "jquery": true,
+  // Custom Globals
+  "globals": {
+    "module": true,
+    "require": true,
+    "angular": true,
+    "inject": true,
+    "sinon": true
+  }
+}
