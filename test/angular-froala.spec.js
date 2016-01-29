@@ -52,11 +52,14 @@ describe("froala", function () {
         scope.content = '';
     };
 
-    var createEditorInManualMode = function () {
+    var createEditorInManualMode = function (moreFroalaOptions) {
         elementHtml = "<div froala='froalaOptions' ng-model='content' froala-init='initEditor(initControls)'></div>";
         compileElement(function () {
             $rootScope.initEditor = function (initControls) {
                 $rootScope.initControls = initControls;
+
+                $rootScope.froalaOptions = angular.extend($rootScope.froalaOptions, moreFroalaOptions);
+
             };
         });
     };
@@ -213,4 +216,54 @@ describe("froala", function () {
         expect($rootScope.initControls.getEditor()).toBeNull();
     });
 
+    it('Allows create then destroy then create with options preserved', function() {
+        var linkList = [
+            {
+                text: 'MSN',
+                href: 'http://www.msn.com'
+            },
+            {
+                text: 'NY Times',
+                href: 'http://www.nytimes.com',
+                rel: 'nofollow'
+            },
+            {
+                displayText: 'Tellwise',
+                href: 'http://www.tellwise.com',
+                target: '_blank'
+            },
+            {
+                text: 'Bing',
+                displayText: 'Bing',
+                href: 'http://www.bing.com',
+                target: '_blank',
+                rel: 'nofollow'
+            }
+        ];
+        createEditorInManualMode({
+            linkList: linkList
+        });
+
+        //
+        // First initialize
+        //
+        $rootScope.initControls.initialize();
+        expect($rootScope.initControls.getEditor()).toBeDefined();
+
+        //
+        // Destroy
+        //
+        $rootScope.initControls.destroy();
+
+        //
+        // Second initialize
+        //
+        $rootScope.initControls.initialize();
+        expect($rootScope.initControls.getEditor()).toBeDefined();
+
+        //
+        // Would be nice to verify that the linkList is applied to froalaEditor
+        //
+
+    });
 });
