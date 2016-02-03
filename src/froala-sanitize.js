@@ -487,7 +487,6 @@
             if (v.length === 2) {
                 var key = trim(angular.lowercase(v[0]));
                 value = trim(angular.lowercase(v[1]));
-                console.log("Validating " + key + " : " + value);
                 if (
                     (key === 'color' || key === 'background-color') && (
                         value.match(/^rgb\([0-9%,\. ]*\)$/i) ||
@@ -520,7 +519,7 @@
 												value === "'times new roman',times,serif" ||
 												value === 'verdana,geneva,sans-serif'
  										) ||
-                    (key === 'width' || key === 'height' || key === 'font-size') && (
+                    (key === 'width' || key === 'height' || key === 'font-size' || key === 'margin-left') && (
                         value.match(/[0-9\.]*(px|em|rem|%)/)
                     )
                 ) {
