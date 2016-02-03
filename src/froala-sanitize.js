@@ -476,8 +476,8 @@
         };
     })();
 
-// Custom logic for accepting certain style options only - textAngular
-// Currently allows only the color, background-color, text-align, float, width and height attributes
+// Custom logic for accepting certain style options only - angularFroala
+// Currently allows only the color, background-color, text-align, direction, font-family, font-size, float, width and height attributes
 // all other attributes should be easily done through classes.
     function validStyles(styleAttr) {
         var result = '';
@@ -487,6 +487,7 @@
             if (v.length === 2) {
                 var key = trim(angular.lowercase(v[0]));
                 value = trim(angular.lowercase(v[1]));
+                console.log("Validating " + key + " : " + value);
                 if (
                     (key === 'color' || key === 'background-color') && (
                         value.match(/^rgb\([0-9%,\. ]*\)$/i) ||
@@ -507,7 +508,19 @@
                         value === 'right' ||
                         value === 'none'
                     ) ||
-                    (key === 'width' || key === 'height') && (
+                    key === 'direction' && (
+												value === 'rtl' ||
+												value === 'ltr'
+                    ) ||
+ 										key === 'font-family' && (
+												value === 'arial,helvetica,sans-serif' ||
+												value === 'georgia,serif' ||
+												value === 'impact,charcoal,sans-serif' ||
+												value === 'tahoma,geneva,sans-serif' ||
+												value === "'times new roman',times,serif" ||
+												value === 'verdana,geneva,sans-serif'
+ 										) ||
+                    (key === 'width' || key === 'height' || key === 'font-size') && (
                         value.match(/[0-9\.]*(px|em|rem|%)/)
                     )
                 ) {

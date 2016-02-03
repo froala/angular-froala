@@ -19,7 +19,7 @@
       $scope.deleteAll = function() {initControls.getEditor()('html.set', '');};
     };
 
-		$scope.myTitle = '<span style="font-family: Verdana,Geneva,sans-serif;">My Document\'s Title</span>';
+		$scope.myTitle = '<span style="font-family: Verdana,Geneva,sans-serif; font-size: 30px;">My Document\'s Title</span><span style="font-size: 18px;"></span></span>';
 		$scope.sample2Text = "";
     $scope.sample3Text = "";
 
