@@ -27,18 +27,10 @@ directive('froala', ['froalaConfig', function (froalaConfig) {
             scope.initMode = attrs.froalaInit ? MANUAL : AUTOMATIC;
 
             ctrl.init = function () {
-                ctrl.options = angular.extend({}, froalaConfig, scope.froalaOptions);
                 ctrl.listeningEvents = ["keyup", 'froalaEditor'];
                 if (!attrs.id) {
                     // generate an ID if not present
                     attrs.$set('id', 'froala-' + generatedIds++);
-                }
-
-                //Register events provided in the options
-                for (var eventName in ctrl.options.events) {
-                    if (ctrl.options.events.hasOwnProperty(eventName)) {
-                        ctrl.registerEventsWithCallbacks(eventName, ctrl.options.events[eventName]);
-                    }
                 }
 
                 //init the editor
@@ -61,8 +53,16 @@ directive('froala', ['froalaConfig', function (froalaConfig) {
 
             ctrl.createEditor = function () {
                 if (!ctrl.editorInitialized) {
+                    ctrl.options = angular.extend({}, froalaConfig, scope.froalaOptions);
                     ctrl.froalaElement = element.froalaEditor(ctrl.options).data('froala.editor').$el;
                     ctrl.froalaEditor = angular.bind(element, element.froalaEditor);
+
+                    //Register events provided in the options
+                    for (var eventName in ctrl.options.events) {
+                        if (ctrl.options.events.hasOwnProperty(eventName)) {
+                            ctrl.registerEventsWithCallbacks(eventName, ctrl.options.events[eventName]);
+                        }
+                    }
                     ctrl.initListeners();
 
                     //assign the froala instance to the options object to make methods available in parent scope
