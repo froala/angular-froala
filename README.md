@@ -1,4 +1,4 @@
-​out​# angular-froala
+# angular-froala
 >angular-froala provides AngularJS bindings to the froala WYSIWYG editor VERSION 2.
 
 ##Version 2
