@@ -50,7 +50,16 @@ _view.html_
 ```html
 <textarea froala="froalaOptions" ngModel="myHtml"></textarea>
 ```
-View a list of all the options available in the [docs](https://www.froala.com/wysiwyg-editor/docs/options)
+
+You can pass any existing Froala option. Consult the [Froala documentation](https://www.froala.com/wysiwyg-editor/docs/options) to view the list of all the available options.
+
+####Directive Specific Option
+The *angular-froala* directive exposes the following additional option:
+
+ * **immediateModelUpdate**: (default: true) This option synchronizes the model as soon as a key is released in the editor. If performance
+  is an issue or that it is acceptable that the model is not immediately updated, it is better to set this option to *false*. The
+  model will then be updated when the Froala editor dispatches a contenChanged event. This option is *true* by default for backward compatibility.
+  Please be advised that the default value may be changed to *false* in a subsequent major version.
 
 ###Methods
 
