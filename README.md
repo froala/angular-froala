@@ -60,11 +60,14 @@ To use the methods available, access the editor instance from your froalaOptions
 function myCtrl($scope){
 	$scope.myHtml = "";
 	$scope.froalaOptions = {
-		toolbarButtons : ["bold", "italic", "underline", "|", "align", "formatOL", "formatUL"]
+		toolbarButtons : ["bold", "italic", "underline", "|", "align", "formatOL", "formatUL"],
+		events: {
+			'froalaEditor.initialized': function () {
+				// Use the methods like this.
+				$scope.froalaOptions.froalaEditor('selection.get');
+			}
+		}
 	}
-
-//Use the methods like this
-$scope.froalaOptions.froalaEditor("selection.get");
 ```
 ###Events
  Events can be passed in with the options, with a key events and object where the key is the event name and the value is the callback function.
@@ -135,7 +138,7 @@ Clone the Git [Angular-Froala](https://github.com/froala/angular-froala) reposit
     $ bower install
 
 #### Running tests
-Each contribution to the project should come with its set of unit tests thus ensuring that the new behaviour will not be altered by subsequent commits. 
+Each contribution to the project should come with its set of unit tests thus ensuring that the new behaviour will not be altered by subsequent commits.
 So, before each commit to the repository, run the tests by running the following grunt task:
 
     $ grunt test

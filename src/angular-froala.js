@@ -27,7 +27,7 @@ directive('froala', ['froalaConfig', function (froalaConfig) {
             scope.initMode = attrs.froalaInit ? MANUAL : AUTOMATIC;
 
             ctrl.init = function () {
-                ctrl.listeningEvents = ["keyup", 'froalaEditor'];
+                ctrl.listeningEvents = ['froalaEditor'];
                 if (!attrs.id) {
                     // generate an ID if not present
                     attrs.$set('id', 'froala-' + generatedIds++);
@@ -54,15 +54,17 @@ directive('froala', ['froalaConfig', function (froalaConfig) {
             ctrl.createEditor = function () {
                 if (!ctrl.editorInitialized) {
                     ctrl.options = angular.extend({}, froalaConfig, scope.froalaOptions);
-                    ctrl.froalaElement = element.froalaEditor(ctrl.options).data('froala.editor').$el;
-                    ctrl.froalaEditor = angular.bind(element, element.froalaEditor);
 
-                    //Register events provided in the options
+                    // Register events provided in the options
+                    // Registering events before initializing the editor will bind the initialized event correctly.
                     for (var eventName in ctrl.options.events) {
                         if (ctrl.options.events.hasOwnProperty(eventName)) {
                             ctrl.registerEventsWithCallbacks(eventName, ctrl.options.events[eventName]);
                         }
                     }
+
+                    element.froalaEditor(ctrl.options);
+                    ctrl.froalaEditor = angular.bind(element, element.froalaEditor);
                     ctrl.initListeners();
 
                     //assign the froala instance to the options object to make methods available in parent scope
@@ -75,10 +77,6 @@ directive('froala', ['froalaConfig', function (froalaConfig) {
             };
 
             ctrl.initListeners = function () {
-                ctrl.froalaElement.on('keyup', function () {
-                    ctrl.updateModelView();
-                });
-
                 element.on('froalaEditor.contentChanged', function () {
                     ctrl.updateModelView();
                 });

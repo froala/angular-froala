@@ -99,29 +99,12 @@ describe("froala", function () {
         expect(element.attr('class')).toContain('ng-invalid');
     });
 
-    it('Registers the Key Up event', function () {
-        compileElement();
-
-        expect(froalaEditorOnStub.args[0][0]).toEqual('keyup');
-    });
-
     it('Destroys editor when directive is destroyed', function () {
         compileElement();
 
         $rootScope.$destroy();
 
         expect(froalaEditorStub.args[1][0]).toEqual('destroy');
-    });
-
-
-    it('Updates the model after a key is released', function () {
-        compileElement(function () {
-            froalaEditorStub.onSecondCall().returns('My String');
-        });
-
-        froalaEditorOnStub.callArgOn(1);
-
-        expect($rootScope.content).toEqual('My String');
     });
 
     it('Updates the model after the froala editor content has changed', function () {
