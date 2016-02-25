@@ -3,7 +3,7 @@ value('froalaConfig', {}).
 directive('froala', ['froalaConfig', function (froalaConfig) {
     "use strict"; //Scope strict mode to only this directive
     var generatedIds = 0;
-    var defaultConfig = { immediateModelUpdate: true};
+    var defaultConfig = { immediateAngularModelUpdate: false};
 
     var scope = {
         froalaOptions: '=froala',
@@ -57,7 +57,7 @@ directive('froala', ['froalaConfig', function (froalaConfig) {
                 if (!ctrl.editorInitialized) {
                     ctrl.options = angular.extend({}, defaultConfig, froalaConfig, scope.froalaOptions);
 
-                    if (ctrl.options.immediateModelUpdate) {
+                    if (ctrl.options.immediateAngularModelUpdate) {
                         ctrl.listeningEvents.push('keyup');
                     }
 
@@ -83,7 +83,7 @@ directive('froala', ['froalaConfig', function (froalaConfig) {
             };
 
             ctrl.initListeners = function () {
-                if (ctrl.options.immediateModelUpdate) {
+                if (ctrl.options.immediateAngularModelUpdate) {
                     ctrl.froalaElement.on('keyup', function () {
                         ctrl.updateModelView();
                     });

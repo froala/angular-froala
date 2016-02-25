@@ -87,16 +87,14 @@ describe("froala", function () {
     it('Uses default option values when no options are provided', function () {
         compileElement();
 
-        expect(froalaEditorStub.args[0][0].immediateModelUpdate).toBeDefined();
-        expect(froalaEditorStub.args[0][0].immediateModelUpdate).toBeTruthy();
+        expect(froalaEditorStub.args[0][0].immediateAngularModelUpdate).toBeFalsy();
     });
 
     it('Can overwrite default options', function () {
-        $rootScope.froalaOptions = {immediateModelUpdate: false};
+        $rootScope.froalaOptions = {immediateAngularModelUpdate: true};
         compileElement();
 
-        expect(froalaEditorStub.args[0][0].immediateModelUpdate).toBeDefined();
-        expect(froalaEditorStub.args[0][0].immediateModelUpdate).toBeFalsy();
+        expect(froalaEditorStub.args[0][0].immediateAngularModelUpdate).toBeTruthy();
     });
 
     it('Returns the instantiated editor in the options', function () {
@@ -116,13 +114,14 @@ describe("froala", function () {
     });
 
     it('Registers the Key Up event', function () {
+        $rootScope.froalaOptions = {immediateAngularModelUpdate: true};
         compileElement();
 
         expect(froalaEditorOnStub.args[0][0]).toEqual('keyup');
     });
 
-    it('Does not register the Key Up event if immediateModelUpdate is false', function () {
-        $rootScope.froalaOptions = {immediateModelUpdate: false};
+    it('Does not register the Key Up event if immediateAngularModelUpdate is false', function () {
+        $rootScope.froalaOptions = {immediateAngularModelUpdate: false};
         compileElement();
 
         expect(froalaEditorOnStub.args.length).toEqual(0);
@@ -137,7 +136,8 @@ describe("froala", function () {
     });
 
 
-    it('Updates the model after a key is released', function () {
+    it('Updates the model after a key is released when option for immediate update is activated', function () {
+        $rootScope.froalaOptions = {immediateAngularModelUpdate: true};
         compileElement(function () {
             froalaEditorStub.onSecondCall().returns('My String');
         });
