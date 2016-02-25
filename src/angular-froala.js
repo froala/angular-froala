@@ -2,13 +2,15 @@ angular.module('froala', []).
 value('froalaConfig', {}).
 directive('froala', ['froalaConfig', function (froalaConfig) {
     "use strict"; //Scope strict mode to only this directive
-    froalaConfig = froalaConfig || {};
     var generatedIds = 0;
+    var defaultConfig = { immediateAngularModelUpdate: false};
 
     var scope = {
         froalaOptions: '=froala',
         initFunction: '&froalaInit'
     };
+
+    froalaConfig = froalaConfig || {};
 
     // Constants
     var MANUAL = "manual";
@@ -27,7 +29,6 @@ directive('froala', ['froalaConfig', function (froalaConfig) {
             scope.initMode = attrs.froalaInit ? MANUAL : AUTOMATIC;
 
             ctrl.init = function () {
-                ctrl.listeningEvents = ['froalaEditor'];
                 if (!attrs.id) {
                     // generate an ID if not present
                     attrs.$set('id', 'froala-' + generatedIds++);
@@ -52,8 +53,13 @@ directive('froala', ['froalaConfig', function (froalaConfig) {
             };
 
             ctrl.createEditor = function () {
+                ctrl.listeningEvents = ['froalaEditor'];
                 if (!ctrl.editorInitialized) {
-                    ctrl.options = angular.extend({}, froalaConfig, scope.froalaOptions);
+                    ctrl.options = angular.extend({}, defaultConfig, froalaConfig, scope.froalaOptions);
+
+                    if (ctrl.options.immediateAngularModelUpdate) {
+                        ctrl.listeningEvents.push('keyup');
+                    }
 
                     // Register events provided in the options
                     // Registering events before initializing the editor will bind the initialized event correctly.
@@ -63,7 +69,7 @@ directive('froala', ['froalaConfig', function (froalaConfig) {
                         }
                     }
 
-                    element.froalaEditor(ctrl.options);
+                    ctrl.froalaElement = element.froalaEditor(ctrl.options).data('froala.editor').$el;
                     ctrl.froalaEditor = angular.bind(element, element.froalaEditor);
                     ctrl.initListeners();
 
@@ -77,6 +83,12 @@ directive('froala', ['froalaConfig', function (froalaConfig) {
             };
 
             ctrl.initListeners = function () {
+                if (ctrl.options.immediateAngularModelUpdate) {
+                    ctrl.froalaElement.on('keyup', function () {
+                        ctrl.updateModelView();
+                    });
+                }
+
                 element.on('froalaEditor.contentChanged', function () {
                     ctrl.updateModelView();
                 });

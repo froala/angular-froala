@@ -50,8 +50,15 @@ _view.html_
 ```html
 <textarea froala="froalaOptions" ng-model="myHtml"></textarea>
 ```
-View a list of all the options available in the [docs](https://www.froala.com/wysiwyg-editor/docs/options)
 
+You can pass any existing Froala option. Consult the [Froala documentation](https://www.froala.com/wysiwyg-editor/docs/options) to view the list of all the available options.
+
+####Directive Specific Option
+The *angular-froala* directive exposes the following additional option:
+
+ * **immediateAngularModelUpdate**: (default: false) This option synchronizes the angular model as soon as a key is released in the editor. Note that it may affect
+  performances.
+  
 ###Methods
 
 To use the methods available, access the editor instance from your froalaOptions object `$scope.options.froalaEditor(method)` and use it as described in the [method docs](http://froala.com/wysiwyg-editor/docs/methods). example:

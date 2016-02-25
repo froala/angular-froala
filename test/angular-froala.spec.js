@@ -46,9 +46,10 @@ describe("froala", function () {
     };
 
     var populateScope = function (scope) {
-        scope.froalaOptions = {
-            initOnClick: true
-        };
+        if (scope.froalaOptions === undefined) {
+            scope.froalaOptions = {};
+        }
+        scope.froalaOptions.initOnClick = true;
         scope.content = '';
     };
 
@@ -83,6 +84,19 @@ describe("froala", function () {
         expect(froalaEditorStub.args[0][0].initOnClick).toBeTruthy();
     });
 
+    it('Uses default option values when no options are provided', function () {
+        compileElement();
+
+        expect(froalaEditorStub.args[0][0].immediateAngularModelUpdate).toBeFalsy();
+    });
+
+    it('Can overwrite default options', function () {
+        $rootScope.froalaOptions = {immediateAngularModelUpdate: true};
+        compileElement();
+
+        expect(froalaEditorStub.args[0][0].immediateAngularModelUpdate).toBeTruthy();
+    });
+
     it('Returns the instantiated editor in the options', function () {
         compileElement();
 
@@ -99,12 +113,38 @@ describe("froala", function () {
         expect(element.attr('class')).toContain('ng-invalid');
     });
 
+    it('Registers the Key Up event', function () {
+        $rootScope.froalaOptions = {immediateAngularModelUpdate: true};
+        compileElement();
+
+        expect(froalaEditorOnStub.args[0][0]).toEqual('keyup');
+    });
+
+    it('Does not register the Key Up event if immediateAngularModelUpdate is false', function () {
+        $rootScope.froalaOptions = {immediateAngularModelUpdate: false};
+        compileElement();
+
+        expect(froalaEditorOnStub.args.length).toEqual(0);
+    });
+
     it('Destroys editor when directive is destroyed', function () {
         compileElement();
 
         $rootScope.$destroy();
 
         expect(froalaEditorStub.args[1][0]).toEqual('destroy');
+    });
+
+
+    it('Updates the model after a key is released when option for immediate update is activated', function () {
+        $rootScope.froalaOptions = {immediateAngularModelUpdate: true};
+        compileElement(function () {
+            froalaEditorStub.onSecondCall().returns('My String');
+        });
+
+        froalaEditorOnStub.callArgOn(1);
+
+        expect($rootScope.content).toEqual('My String');
     });
 
     it('Updates the model after the froala editor content has changed', function () {
