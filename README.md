@@ -48,7 +48,7 @@ function myCtrl($scope){
 _view.html_
 
 ```html
-<textarea froala="froalaOptions" ngModel="myHtml"></textarea>
+<textarea froala="froalaOptions" ng-model="myHtml"></textarea>
 ```
 View a list of all the options available in the [docs](https://www.froala.com/wysiwyg-editor/docs/options)
 
