@@ -1,6 +1,6 @@
 angular.module('froala', []).
-value('froalaConfig', {}).
-directive('froala', ['froalaConfig', function (froalaConfig) {
+value('froalaConfig', {})
+.directive('froala', ['froalaConfig', function (froalaConfig) {
     "use strict"; //Scope strict mode to only this directive
     var generatedIds = 0;
     var defaultConfig = { immediateAngularModelUpdate: false};
@@ -132,4 +132,21 @@ directive('froala', ['froalaConfig', function (froalaConfig) {
             ctrl.init();
         }
     };
+}])
+.directive('froalaView', ['$sce', function ($sce) {
+	return {
+		restrict: 'ACM',
+		scope: {
+			content: '=froalaView'
+		},
+		link: function (scope, element) {
+			element.addClass('fr-view');
+			scope.$watch('content', function (nv) {
+				if (nv || nv === ''){
+					var explicitlyTrustedValue = $sce.trustAsHtml(nv);
+					element.html(explicitlyTrustedValue.toString());
+				}
+			});
+		}
+	};
 }]);

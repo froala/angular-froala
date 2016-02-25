@@ -3,7 +3,9 @@ describe("froala", function () {
     var $compile;
     var $rootScope;
     var element = null;
+    var view = null;
     var elementHtml = null;
+    var viewHtml = null;
     var froalaEditorStub = null;
     var froalaEditorOnStub = null;
     var froalaEditorOffStub = null;
@@ -19,6 +21,7 @@ describe("froala", function () {
 
         froalaConfig.placeholderText = 'Placeholder';
         elementHtml = "<div froala='froalaOptions' ng-model='content'></div>";
+        viewHtml = "<div froala-view='content'></div>";
     }));
 
     var compileElement = function (extraSetup) {
@@ -29,6 +32,10 @@ describe("froala", function () {
         }
 
         element = $compile(elementHtml)($rootScope);
+    };
+
+    var compileViewElement = function () {
+    	view = $compile(viewHtml)($rootScope);
     };
 
     var setupFroalaEditorStub = function () {
@@ -289,4 +296,13 @@ describe("froala", function () {
         //
 
     });
+
+		it('Sets the view to the value of the model', function () {
+				$rootScope.content = '<i>New Text</i>';
+
+				compileViewElement();
+				$rootScope.$digest();
+
+      	expect(view.html()).toEqual("<i>New Text</i>");
+		});
 });

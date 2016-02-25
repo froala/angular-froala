@@ -60,7 +60,6 @@
   <script src="../bower_components/angular/angular.min.js"></script>
 
   <script src="../src/froala-sanitize.js"></script>
-  <script src="../src/angular-froala.js"></script>
   <script src="app.js"></script>
   <link rel="stylesheet" href="app.css">
 </head>
@@ -77,7 +76,7 @@
       <h2>Sample 2: Full Editor</h2>
       <textarea id="froala-sample-2" froala ng-model="sample2Text"></textarea>
       <h4>Rendered Content:</h4>
-      <div class="fr-view" ng-bind-html="sample2Text"></div>
+      <div froala-view="sample2Text"></div>
     </div>
 
     <div class="sample">

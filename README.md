@@ -13,7 +13,6 @@ This repository contains bindings for the latest version of the Froala Editor (v
 
 3. Load Froala WYSIWYG editor (and all desired plugins), jQuery and the angular-froala files into your project
 	- src/angular-froala.js
-	- src/froala-sanitize.js
 
 ## Usage
 
@@ -105,9 +104,17 @@ The object received by the function will contain the following methods:
 
 Checkout the demo file to see a working example.
 
-###Displaying Html
+<!-- ### Displaying Html -->
 
-Using `ng-bind-html` will render your html on the page but the default angular-sanitize.js will strip out all style tags. Remedy this by including `froala-sanitize.js` instead. example: `<div class="fr-view" ng-bind-html="myHtml"></div>`
+![screenshot 2016-02-25 16 47 15](https://cloud.githubusercontent.com/assets/597735/13335505/774c0a76-dbdf-11e5-94c5-b0eb9c5b4923.png)
+
+To display content created with the froala editor use the froala-view directive.
+if `myHtml` is your model, then the following will render your content.
+```html
+	<div froala-view="myHtml"></div>
+```
+
+If you are using the old `ng-bind-html` that will continue to work however it still requires froala-sanitize.js to be use and not all of froala is supported with it. The update directive does __not__ require froala-sanitize.
 
 Congrats all is done!
 

@@ -1,5 +1,5 @@
 	// add the module with global defaults for froala
-	var myApp = angular.module('myApp', ['ngSanitize', 'froala']).
+	var myApp = angular.module('myApp', ['froala']).
 	value('froalaConfig', {
 		toolbarInline: false,
 		placeholderText: 'Edit Your Content Here!'
@@ -14,7 +14,7 @@
 			toolbarInline: true,
 			events: {
 				'froalaEditor.initialized': function() {
-					console.log('initialized')
+					console.log('initialized');
 				}
 			}
 		};
