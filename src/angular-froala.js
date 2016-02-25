@@ -91,6 +91,9 @@ directive('froala', ['froalaConfig', function (froalaConfig) {
                 var returnedHtml = element.froalaEditor('html.get');
                 if (angular.isString(returnedHtml)) {
                     ngModel.$setViewValue(returnedHtml);
+                    if (!scope.$root.$$phase) {
+                        scope.$apply();
+                    }
                 }
             };
 
