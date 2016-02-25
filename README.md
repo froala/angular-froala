@@ -111,10 +111,10 @@ Checkout the demo file to see a working example.
 To display content created with the froala editor use the froala-view directive.
 if `myHtml` is your model, then the following will render your content.
 ```html
-	<div froala-view="myHtml"></div>
+<div froala-view="myHtml"></div>
 ```
 
-If you are using the old `ng-bind-html` that will continue to work however it still requires froala-sanitize.js to be use and not all of froala is supported with it. The update directive does __not__ require froala-sanitize.
+If you are using the old `ng-bind-html` that will continue to work however it still requires froala-sanitize.js to be used and not all of froala is supported with it. The updated directive does __not__ require froala-sanitize.
 
 Congrats all is done!
 
