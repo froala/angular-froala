@@ -85,12 +85,12 @@ value('froalaConfig', {})
             ctrl.initListeners = function () {
                 if (ctrl.options.immediateAngularModelUpdate) {
                     ctrl.froalaElement.on('keyup', function () {
-                        ctrl.updateModelView();
+                        scope.$evalAsync(ctrl.updateModelView);
                     });
                 }
 
                 element.on('froalaEditor.contentChanged', function () {
-                    ctrl.updateModelView();
+                    scope.$evalAsync(ctrl.updateModelView);
                 });
 
                 scope.$on('$destroy', function () {
