@@ -1,6 +1,6 @@
 {
   "name": "angular-froala",
-  "version": "2.2.1",
+  "version": "2.2.2",
   "description": "Angular.js bindings for Froala WYSIWYG HTML rich text editor",
   "main": "src/angular-froala.js",
   "scripts": {
