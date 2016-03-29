@@ -137,12 +137,10 @@ value('froalaConfig', {})
 .directive('froalaView', ['$sce', function ($sce) {
 	return {
 		restrict: 'ACM',
-		scope: {
-			content: '=froalaView'
-		},
-		link: function (scope, element) {
+		scope: false,
+		link: function (scope, element, attrs) {
 			element.addClass('fr-view');
-			scope.$watch('content', function (nv) {
+			scope.$watch(attrs.froalaView, function (nv) {
 				if (nv || nv === ''){
 					var explicitlyTrustedValue = $sce.trustAsHtml(nv);
 					element.html(explicitlyTrustedValue.toString());
