@@ -297,12 +297,21 @@ describe("froala", function () {
 
     });
 
-		it('Sets the view to the value of the model', function () {
+	it('Sets the view to the value of the model', function () {
 				$rootScope.content = '<i>New Text</i>';
 
 				compileViewElement();
 				$rootScope.$digest();
 
       	expect(view.html()).toEqual("<i>New Text</i>");
-		});
+	});
+
+    it('Sets options when the editor is instantiated manually', function () {
+        createEditorInManualMode();
+
+        $rootScope.initControls.initialize({initOnClick: false});
+
+        expect(froalaEditorStub.called).toBeTruthy();
+        expect(froalaEditorStub.args[0][0].initOnClick).toBeFalsy();
+    });
 });
