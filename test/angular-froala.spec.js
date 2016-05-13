@@ -150,6 +150,7 @@ describe("froala", function () {
         });
 
         froalaEditorOnStub.callArgOn(1);
+        $rootScope.$digest();
 
         expect($rootScope.content).toEqual('My String');
     });
@@ -160,6 +161,7 @@ describe("froala", function () {
         });
 
         element.trigger('froalaEditor.contentChanged');
+        $rootScope.$digest();
 
         expect($rootScope.content).toEqual('My String');
     });
