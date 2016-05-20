@@ -48,6 +48,8 @@ value('froalaConfig', {})
                 };
 
                 ngModel.$isEmpty = function (value) {
+                  if (!value) return true;
+
                   var isEmpty = element.froalaEditor('node.isEmpty', jQuery('<div>' + value + '</div>').get(0));
                   return isEmpty;
                 };
