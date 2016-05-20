@@ -55,10 +55,11 @@ value('froalaConfig', {})
                 };
             };
 
-            ctrl.createEditor = function () {
+            ctrl.createEditor = function (froalaInitOptions) {
                 ctrl.listeningEvents = ['froalaEditor'];
                 if (!ctrl.editorInitialized) {
-                    ctrl.options = angular.extend({}, defaultConfig, froalaConfig, scope.froalaOptions);
+                    froalaInitOptions = (froalaInitOptions || {});
+                    ctrl.options = angular.extend({}, defaultConfig, froalaConfig, scope.froalaOptions,froalaInitOptions);
 
                     if (ctrl.options.immediateAngularModelUpdate) {
                         ctrl.listeningEvents.push('keyup');
