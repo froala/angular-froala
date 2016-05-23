@@ -56,7 +56,7 @@ describe("froala", function () {
         if (scope.froalaOptions === undefined) {
             scope.froalaOptions = {};
         }
-        scope.froalaOptions.initOnClick = true;
+        scope.froalaOptions.disableRightClick = true;
         scope.content = '';
     };
 
@@ -88,7 +88,7 @@ describe("froala", function () {
         compileElement();
 
         expect(froalaEditorStub.args[0][0].placeholderText).toEqual('Placeholder');
-        expect(froalaEditorStub.args[0][0].initOnClick).toBeTruthy();
+        expect(froalaEditorStub.args[0][0].disableRightClick).toBeTruthy();
     });
 
     it('Uses default option values when no options are provided', function () {
@@ -150,6 +150,7 @@ describe("froala", function () {
         });
 
         froalaEditorOnStub.callArgOn(1);
+        $rootScope.$digest();
 
         expect($rootScope.content).toEqual('My String');
     });
@@ -160,6 +161,7 @@ describe("froala", function () {
         });
 
         element.trigger('froalaEditor.contentChanged');
+        $rootScope.$digest();
 
         expect($rootScope.content).toEqual('My String');
     });
