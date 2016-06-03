@@ -171,6 +171,7 @@ describe("froala", function () {
 
         $rootScope.content = '<i>New Text</i>';
         $rootScope.$digest();
+        element.trigger('froalaEditor.initialized');
 
         expect(froalaEditorStub.getCall(1).args[0]).toEqual('html.set');
         expect(froalaEditorStub.getCall(1).args[1]).toEqual('<i>New Text</i>');
@@ -219,9 +220,11 @@ describe("froala", function () {
         createEditorInManualMode();
 
         $rootScope.initControls.initialize();
+        element.trigger('froalaEditor.initialized');
+
         $rootScope.initControls.initialize();
 
-        expect(froalaEditorStub.callCount).toEqual(1);
+        expect(froalaEditorStub.callCount).toEqual(4); // 1 for creating editor and 3 after initialized event
     });
 
     it('Can re-initialize the editor after closing it', function () {
