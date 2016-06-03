@@ -56,7 +56,7 @@ describe("froala", function () {
         if (scope.froalaOptions === undefined) {
             scope.froalaOptions = {};
         }
-        scope.froalaOptions.initOnClick = true;
+        scope.froalaOptions.disableRightClick = true;
         scope.content = '';
     };
 
@@ -88,7 +88,7 @@ describe("froala", function () {
         compileElement();
 
         expect(froalaEditorStub.args[0][0].placeholderText).toEqual('Placeholder');
-        expect(froalaEditorStub.args[0][0].initOnClick).toBeTruthy();
+        expect(froalaEditorStub.args[0][0].disableRightClick).toBeTruthy();
     });
 
     it('Uses default option values when no options are provided', function () {
@@ -150,6 +150,7 @@ describe("froala", function () {
         });
 
         froalaEditorOnStub.callArgOn(1);
+        $rootScope.$digest();
 
         expect($rootScope.content).toEqual('My String');
     });
@@ -160,6 +161,7 @@ describe("froala", function () {
         });
 
         element.trigger('froalaEditor.contentChanged');
+        $rootScope.$digest();
 
         expect($rootScope.content).toEqual('My String');
     });
@@ -169,6 +171,7 @@ describe("froala", function () {
 
         $rootScope.content = '<i>New Text</i>';
         $rootScope.$digest();
+        element.trigger('froalaEditor.initialized');
 
         expect(froalaEditorStub.getCall(1).args[0]).toEqual('html.set');
         expect(froalaEditorStub.getCall(1).args[1]).toEqual('<i>New Text</i>');
@@ -217,9 +220,11 @@ describe("froala", function () {
         createEditorInManualMode();
 
         $rootScope.initControls.initialize();
+        element.trigger('froalaEditor.initialized');
+
         $rootScope.initControls.initialize();
 
-        expect(froalaEditorStub.callCount).toEqual(1);
+        expect(froalaEditorStub.callCount).toEqual(4); // 1 for creating editor and 3 after initialized event
     });
 
     it('Can re-initialize the editor after closing it', function () {
@@ -297,12 +302,21 @@ describe("froala", function () {
 
     });
 
-		it('Sets the view to the value of the model', function () {
+	it('Sets the view to the value of the model', function () {
 				$rootScope.content = '<i>New Text</i>';
 
 				compileViewElement();
 				$rootScope.$digest();
 
       	expect(view.html()).toEqual("<i>New Text</i>");
-		});
+	});
+
+    it('Sets options when the editor is instantiated manually', function () {
+        createEditorInManualMode();
+
+        $rootScope.initControls.initialize({initOnClick: false});
+
+        expect(froalaEditorStub.called).toBeTruthy();
+        expect(froalaEditorStub.args[0][0].initOnClick).toBeFalsy();
+    });
 });
