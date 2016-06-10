@@ -93,7 +93,7 @@ $scope.froalaOptions = {
 Sometimes you want to control when the Froala Editor will be instantiated. The directive includes a **froala-init** attributes which will provide you with the controls required to initialize and close the editor.
 
 ```html
-<div froala froala-init="myControllerFunction(initcontrols)"></div>
+<div froala froala-init="myControllerFunction(initControls)"></div>
 ```
 
 Where *MyControllerFunction* is the name of a function in your controller which will receive an object with different methods to control the editor initialization process. It is primordial that the name of the parameter be *initControls* otherwise your function will not receive the controls.
