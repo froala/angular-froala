@@ -1,7 +1,7 @@
 # angular-froala
 >angular-froala provides AngularJS bindings to the froala WYSIWYG editor VERSION 2.
 
-##Version 2
+## Version 2
 This repository contains bindings for the latest version of the Froala Editor (version 2). Checkout the `V1` branch for support of Version 1 of the editor.
 
 
@@ -12,9 +12,9 @@ This repository contains bindings for the latest version of the Froala Editor (v
 2. Run `bower install` or Download the editor from [https://www.froala.com/wysiwyg-editor/](https://www.froala.com/wysiwyg-editor/) and jQuery
 
 3. Load Froala WYSIWYG editor (and all desired plugins), jQuery and the angular-froala files into your project.  
-	- src/angular-froala.js  
-  
- ***NB***: You must ensure jQuery is included *before* angular, otherwise Angular will use it's own jqLite which doesn't provide the necessary functions.  
+	- src/angular-froala.js
+
+ ***NB***: You must ensure jQuery is included *before* angular, otherwise Angular will use it's own jqLite which doesn't provide the necessary functions.
  
 ## Usage
 
@@ -23,9 +23,10 @@ This repository contains bindings for the latest version of the Froala Editor (v
 2. Create a textarea with the froala directive in your view and give it a model, where `myHtml` is a variable on `$scope`.
 	* `<textarea froala ng-model="myHtml"></textarea> `
 
-###Options
+### Options
 
 **Setting Defaults**: to set defaults for the editor pass a config object to angular.value with the key `froalaConfig` like this:
+
 ```javascript
 angular.module('myApp', ['froala']).
 	value('froalaConfig', {
@@ -54,13 +55,13 @@ _view.html_
 
 You can pass any existing Froala option. Consult the [Froala documentation](https://www.froala.com/wysiwyg-editor/docs/options) to view the list of all the available options.
 
-####Directive Specific Option
+#### Directive Specific Option
 The *angular-froala* directive exposes the following additional option:
 
  * **immediateAngularModelUpdate**: (default: false) This option synchronizes the angular model as soon as a key is released in the editor. Note that it may affect
   performances.
   
-###Methods
+### Methods
 
 To use the methods available, access the editor instance from your froalaOptions object `$scope.options.froalaEditor(method)` and use it as described in the [method docs](http://froala.com/wysiwyg-editor/docs/methods). example:
 
@@ -77,10 +78,13 @@ function myCtrl($scope){
 		}
 	}
 ```
-###Events
+### Events
+
  Events can be passed in with the options, with a key events and object where the key is the event name and the value is the callback function.
-####Attribute
+ 
+#### Attribute
 _app.js_
+
 ```js
 $scope.froalaOptions = {
 	placeholder: "Edit Me",
@@ -89,7 +93,7 @@ $scope.froalaOptions = {
 	}
 ```
 
-###Manual Instantiation
+### Manual Instantiation
 Sometimes you want to control when the Froala Editor will be instantiated. The directive includes a **froala-init** attributes which will provide you with the controls required to initialize and close the editor.
 
 ```html
@@ -112,6 +116,7 @@ Checkout the demo file to see a working example.
 
 To display content created with the froala editor use the froala-view directive.
 if `myHtml` is your model, then the following will render your content.
+
 ```html
 <div froala-view="myHtml"></div>
 ```
@@ -144,11 +149,11 @@ If you want to contribute to Angular-Froala, you will first need to install the 
 #### Installation
 Clone the Git [Angular-Froala](https://github.com/froala/angular-froala) repository on your local machine and run the commands below in the project root directory.
 
-#####1. Install Grunt and Bower
+##### 1. Install Grunt and Bower
 
     $ npm install -g grunt-cli bower
 
-#####2. Install project dependencies
+##### 2. Install project dependencies
 
     $ npm install
     $ bower install
