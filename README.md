@@ -1,5 +1,5 @@
 # angular-froala
->angular-froala provides AngularJS bindings to the froala WYSIWYG editor VERSION 2.
+> For AngularJS 2 bindings see https://github.com/froala/angular2-froala-wysiwyg.
 
 ## Version 2
 This repository contains bindings for the latest version of the Froala Editor (version 2). Checkout the `V1` branch for support of Version 1 of the editor.
