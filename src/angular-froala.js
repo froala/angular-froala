@@ -3,7 +3,12 @@ value('froalaConfig', {})
 .directive('froala', ['froalaConfig', function (froalaConfig) {
     "use strict"; //Scope strict mode to only this directive
     var generatedIds = 0;
-    var defaultConfig = { immediateAngularModelUpdate: false};
+    var defaultConfig = {
+        immediateAngularModelUpdate: false,
+        angularIgnoreAttrs: null
+    };
+
+    var innerHtmlAttr = 'innerHTML';
 
     var scope = {
         froalaOptions: '=froala',
@@ -15,12 +20,18 @@ value('froalaConfig', {})
     // Constants
     var MANUAL = "manual";
     var AUTOMATIC = "automatic";
+    var SPECIAL_TAGS = ['img', 'button', 'input', 'a'];
 
     return {
         restrict: 'A',
         require: 'ngModel',
         scope: scope,
         link: function (scope, element, attrs, ngModel) {
+
+            var specialTag = false;
+            if (SPECIAL_TAGS.indexOf(element.prop("tagName").toLowerCase()) != -1) {
+                specialTag = true;
+            }
 
             var ctrl = {
                 editorInitialized: false
@@ -42,10 +53,26 @@ value('froalaConfig', {})
                 //Instruct ngModel how to update the froala editor
                 ngModel.$render = function () {
                     if (ctrl.editorInitialized) {
-                        element.froalaEditor('html.set', ngModel.$viewValue || '', true);
-                        //This will reset the undo stack everytime the model changes externally. Can we fix this?
-                        element.froalaEditor('undo.reset');
-                        element.froalaEditor('undo.saveStep');
+                        if (specialTag) {
+                            var tags = ngModel.$modelValue;
+
+                            // add tags on element
+                            if (tags) {
+                                for (var attr in tags) {
+                                    if (tags.hasOwnProperty(attr) && attr != innerHtmlAttr) {
+                                        element.attr(attr, tags[attr]);
+                                    }
+                                }
+                                if (tags.hasOwnProperty(innerHtmlAttr)) {
+                                    element[0].innerHTML = tags[innerHtmlAttr];
+                                }
+                            }
+                        } else {
+                            element.froalaEditor('html.set', ngModel.$viewValue || '', true);
+                            //This will reset the undo stack everytime the model changes externally. Can we fix this?
+                            element.froalaEditor('undo.reset');
+                            element.froalaEditor('undo.saveStep');
+                        }
                     }
                 };
 
@@ -69,10 +96,20 @@ value('froalaConfig', {})
                         ctrl.listeningEvents.push('keyup');
                     }
 
-                    ctrl.registerEventsWithCallbacks('froalaEditor.initialized', function() {
+                    // flush means to load ng-model into editor
+                    var flushNgModel = function() {
                         ctrl.editorInitialized = true;
                         ngModel.$render();
-                    });
+                    }
+
+                    if (specialTag) {
+                        // flush before editor is initialized
+                        flushNgModel();
+                    } else {
+                        ctrl.registerEventsWithCallbacks('froalaEditor.initialized', function() {
+                            flushNgModel();
+                        });
+                    }
 
                     // Register events provided in the options
                     // Registering events before initializing the editor will bind the initialized event correctly.
@@ -111,9 +148,32 @@ value('froalaConfig', {})
             };
 
             ctrl.updateModelView = function () {
-                var returnedHtml = element.froalaEditor('html.get');
-                if (angular.isString(returnedHtml)) {
-                    ngModel.$setViewValue(returnedHtml);
+
+                var modelContent = null;
+
+                if (specialTag) {
+                    var attributeNodes = element[0].attributes;
+                    var attrs = {};
+
+                    for (var i = 0; i < attributeNodes.length; i++ ) {
+                        var attrName = attributeNodes[i].name;
+                        if (ctrl.options.angularIgnoreAttrs && ctrl.options.angularIgnoreAttrs.indexOf(attrName) != -1) {
+                            continue;
+                        }
+                        attrs[attrName] = attributeNodes[i].value;
+                    }
+                    if (element[0].innerHTML) {
+                        attrs[innerHtmlAttr] = element[0].innerHTML;
+                    }
+                    modelContent = attrs;
+                } else {
+                    var returnedHtml = element.froalaEditor('html.get');
+                    if (angular.isString(returnedHtml)) {
+                        modelContent = returnedHtml;
+                    }
+                }
+                if (modelContent) {
+                    ngModel.$setViewValue(modelContent);
                     if (!scope.$root.$$phase) {
                         scope.$apply();
                     }
