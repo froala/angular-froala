@@ -87,6 +87,38 @@
       <div id="froala-sample-3" froala froala-init="initialize(initControls)" ng-model="sample3Text">Check out the <a href="https://www.froala.com/wysiwyg-editor">Froala Editor</a></div>
     </div>
 
+    <div class="sample">
+      <h2>Sample 4: Editor on 'img' tag</h2>
+      <img froala ng-model="imgModel"/>
+      <h4>Model Obj:</h4>
+      <div>{{imgModel}}</div>
+    </div>
+
+    <div class="sample">
+      <h2>Sample 5: Editor on 'button' tag</h2>
+      <button froala ng-model="buttonModel"></button>
+      <h4>Model Obj:</h4>
+      <div>{{buttonModel}}</div>
+    </div>
+
+    <div class="sample">
+      <h2>Sample 6: Editor on 'input' tag</h2>
+      <input froala="inputOptions" ng-model="inputModel"/>
+      <h4>Model Obj:</h4>
+      <div>{{inputModel}}</div>
+    </div>
+
+    <div class="sample">
+      <h2>Sample 7: Editor on 'a' tag. Manual Initialization</h2>
+      <button class="manual" ng-click="linkInitControls.initialize()">Initialize Editor</button>
+      <button ng-click="linkInitControls.destroy()" ng-show="linkInitControls.getEditor() != null">Close Editor</button>
+      <div>
+        <a froala froala-init="initializeLink(initControls)" ng-model="linkModel">Froala Editor</a>
+      </div>
+      <h4>Model Obj:</h4>
+      <div>{{linkModel}}</div>
+    </div>
+
 </body>
 
 </html>

@@ -93,6 +93,42 @@ $scope.froalaOptions = {
 	}
 ```
 
+### Special tags
+You can also use the editor on **img**, **button**, **input** and **a** tags:
+
+```html
+<img froala ng-model="imgObj"/>
+```
+
+The model must be an object containing the attributes for your special tags. Example:
+
+```javascript
+$scope.imgObj = {
+  src: 'path/to/image.jpg'
+};
+```
+
+The ng-model will change as the attributes change during usage.
+
+* Ng-model can contain a special attribute named **innerHTML** which inserts innerHTML in the element: If you are using 'button' tag, you can specify the button text like this:
+
+```javascript
+$scope.buttonObj = {
+  innerHTML: 'Button text'
+};
+```
+As the button text is modified by the editor, the **innerHTML** attribute from buttonObj model will be modified too.
+
+#### Specific option for special tags
+
+ * **angularIgnoreAttrs**: (default: null) This option is an array of attributes that you want to ignore when the editor updates the ng-model:
+
+ ```javascript
+$scope.inputOptions = {
+  angularIgnoreAttrs: ['class', 'ng-model', 'id']
+};
+ ```
+
 ### Manual Instantiation
 Sometimes you want to control when the Froala Editor will be instantiated. The directive includes a **froala-init** attributes which will provide you with the controls required to initialize and close the editor.
 

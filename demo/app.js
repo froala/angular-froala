@@ -30,4 +30,18 @@
 		$scope.sample2Text = '';
 		$scope.sample3Text = '';
 
+		$scope.imgModel = {src: 'image.jpg'};
+
+		$scope.buttonModel = {innerHTML: 'Click Me'};
+
+		$scope.inputModel = {placeholder: 'I am an input!'};
+		$scope.inputOptions = {
+			angularIgnoreAttrs: ['class', 'ng-model', 'id', 'froala']
+		}
+
+		$scope.initializeLink = function(linkInitControls) {
+			$scope.linkInitControls = linkInitControls;
+		};
+		$scope.linkModel = {href: 'https://www.froala.com/wysiwyg-editor'}
+
 	});
