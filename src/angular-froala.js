@@ -172,11 +172,10 @@ value('froalaConfig', {})
                         modelContent = returnedHtml;
                     }
                 }
-                if (modelContent) {
-                    ngModel.$setViewValue(modelContent);
-                    if (!scope.$root.$$phase) {
-                        scope.$apply();
-                    }
+
+                ngModel.$setViewValue(modelContent);
+                if (!scope.$root.$$phase) {
+                    scope.$apply();
                 }
             };
 
