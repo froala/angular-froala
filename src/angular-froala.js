@@ -141,9 +141,10 @@ value('froalaConfig', {})
                     scope.$evalAsync(ctrl.updateModelView);
                 });
 
-                scope.$on('$destroy', function () {
+                element.bind('$destroy', function () {
                     element.off(ctrl.listeningEvents.join(" "));
                     element.froalaEditor('destroy');
+                    element = null;
                 });
             };
 
