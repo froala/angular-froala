@@ -74,6 +74,7 @@ function myCtrl($scope){
 			'froalaEditor.initialized': function () {
 				// Use the methods like this.
 				$scope.froalaOptions.froalaEditor('selection.get');
+			}
 		}
 	}
 }
