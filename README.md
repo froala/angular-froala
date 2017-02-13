@@ -74,9 +74,9 @@ function myCtrl($scope){
 			'froalaEditor.initialized': function () {
 				// Use the methods like this.
 				$scope.froalaOptions.froalaEditor('selection.get');
-			}
 		}
 	}
+}
 ```
 ### Events
 
@@ -91,6 +91,7 @@ $scope.froalaOptions = {
 	events : {
 		'froalaEditor.focus' : function(e, editor) {/* ... */}
 	}
+}
 ```
 
 ### Special tags
@@ -104,7 +105,7 @@ The model must be an object containing the attributes for your special tags. Exa
 
 ```javascript
 $scope.imgObj = {
-  src: 'path/to/image.jpg'
+ 	src: 'path/to/image.jpg'
 };
 ```
 
@@ -114,7 +115,7 @@ The ng-model will change as the attributes change during usage.
 
 ```javascript
 $scope.buttonObj = {
-  innerHTML: 'Button text'
+	innerHTML: 'Button text'
 };
 ```
 As the button text is modified by the editor, the **innerHTML** attribute from buttonObj model will be modified too.
@@ -125,7 +126,7 @@ As the button text is modified by the editor, the **innerHTML** attribute from b
 
  ```javascript
 $scope.inputOptions = {
-  angularIgnoreAttrs: ['class', 'ng-model', 'id']
+	angularIgnoreAttrs: ['class', 'ng-model', 'id']
 };
  ```
 
