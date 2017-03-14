@@ -1,6 +1,6 @@
 {
   "name": "angular-froala",
-  "version": "2.5.0",
+  "version": "2.5.1",
   "authors": [
     "Cameron Gallarno <cgallarno@gmail.com>",
     "Stefan Neculai <stefan@froala.com>"
@@ -30,7 +30,7 @@
     "tests"
   ],
   "dependencies": {
-    "froala-wysiwyg-editor": "2.5.0",
+    "froala-wysiwyg-editor": ">=2.5.0",
     "angular": ">=1.0"
   },
   "devDependencies": {
