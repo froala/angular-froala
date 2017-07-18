@@ -1,4 +1,9 @@
-# angular-froala
+# AngularJS 1 Froala WYSIWYG HTML Editor
+
+[![npm](https://img.shields.io/npm/v/angular-froala.svg)](https://www.npmjs.com/package/angular-froala)
+[![npm](https://img.shields.io/npm/dm/angular-froala.svg)](https://www.npmjs.com/package/angular-froala)
+[![npm](https://img.shields.io/npm/l/angular-froala.svg)](https://www.npmjs.com/package/angular-froala)
+
 > For AngularJS 2 bindings see https://github.com/froala/angular2-froala-wysiwyg.
 
 ## Version 2
