@@ -1,6 +1,6 @@
 {
   "name": "angular-froala",
-  "version": "2.7.2",
+  "version": "2.7.3",
   "description": "Angular.js bindings for Froala WYSIWYG HTML rich text editor",
   "main": "src/angular-froala.js",
   "scripts": {
@@ -50,6 +50,6 @@
     "sinon": "^1.17.2"
   },
   "dependencies": {
-    "froala-editor": "^2.7.2"
+    "froala-editor": "^2.7.3"
   }
 }
