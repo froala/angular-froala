@@ -110,9 +110,15 @@
                             // flush before editor is initialized
                             flushNgModel();
                         } else {
-                            ctrl.registerEventsWithCallbacks('froalaEditor.initialized', function() {
-                                flushNgModel();
-                            });
+                            if (ctrl.options.initOnClick) {
+                                ctrl.registerEventsWithCallbacks('froalaEditor.initializationDelayed', function () {
+									flushNgModel();
+								});
+                            } else {
+                                ctrl.registerEventsWithCallbacks('froalaEditor.initialized', function () {
+                                    flushNgModel();
+                                });
+                            }
                         }
 
                         // Register events provided in the options
