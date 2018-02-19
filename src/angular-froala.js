@@ -170,11 +170,9 @@
                     });
 
                     element.bind('$destroy', function () {
-
-                            element.off(ctrl.listeningEvents.join(" "));
-                            element.froalaEditor('destroy');
-                            element = null;
-
+                        element.off(ctrl.listeningEvents.join(" "));
+                        element.froalaEditor('destroy');
+                        element = null;
                     });
                 };
 
