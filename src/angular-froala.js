@@ -56,26 +56,44 @@
 
                     //Instruct ngModel how to update the froala editor
                     ngModel.$render = function () {
-                        if (ctrl.editorInitialized) {
-                            if (specialTag) {
-                                var tags = ngModel.$modelValue;
+                        if (specialTag) {
+                            if (!ctrl.editorInitialized) {
+                                return;
+                            }
 
-                                // add tags on element
-                                if (tags) {
-                                    for (var attr in tags) {
-                                        if (tags.hasOwnProperty(attr) && attr != innerHtmlAttr) {
-                                            element.attr(attr, tags[attr]);
-                                        }
-                                    }
-                                    if (tags.hasOwnProperty(innerHtmlAttr)) {
-                                        element[0].innerHTML = tags[innerHtmlAttr];
+                            var tags = ngModel.$modelValue;
+
+                            // add tags on element
+                            if (tags) {
+                                for (var attr in tags) {
+                                    if (tags.hasOwnProperty(attr) && attr != innerHtmlAttr) {
+                                        element.attr(attr, tags[attr]);
                                     }
                                 }
-                            } else {
-                                element.froalaEditor('html.set', ngModel.$viewValue || '', true);
+                                if (tags.hasOwnProperty(innerHtmlAttr)) {
+                                    element[0].innerHTML = tags[innerHtmlAttr];
+                                }
+                            }
+                        } else {
+                            if (!ctrl.editorInitialized && !ctrl.options.initOnClick) {
+                                return;
+                            }
+
+                            element.froalaEditor('html.set', ngModel.$viewValue || '', true);
+
+                            var resetUndo = function() {
                                 //This will reset the undo stack everytime the model changes externally. Can we fix this?
                                 element.froalaEditor('undo.reset');
                                 element.froalaEditor('undo.saveStep');
+                            };
+
+                            if (!ctrl.editorInitialized && ctrl.options.initOnClick) {
+                                ctrl.registerEventsWithCallbacks("froalaEditor.initialized", function() {
+                                    ctrl.editorInitialized = true;
+                                    resetUndo();
+                                });
+                            } else {
+                                resetUndo();
                             }
                         }
                     };
@@ -110,9 +128,15 @@
                             // flush before editor is initialized
                             flushNgModel();
                         } else {
-                            ctrl.registerEventsWithCallbacks('froalaEditor.initialized', function() {
-                                flushNgModel();
-                            });
+                            if (ctrl.options.initOnClick) {
+                                ctrl.registerEventsWithCallbacks('froalaEditor.initializationDelayed', function () {
+                                    ngModel.$render();
+                                });
+                            } else {
+                                ctrl.registerEventsWithCallbacks('froalaEditor.initialized', function () {
+                                    flushNgModel();
+                                });
+                            }
                         }
 
                         // Register events provided in the options
