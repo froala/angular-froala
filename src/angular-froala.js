@@ -73,10 +73,14 @@
                                 }
                             } else {
                                 element.froalaEditor('html.set', ngModel.$viewValue || '', true);
+
                                 //This will reset the undo stack everytime the model changes externally. Can we fix this?
                                 element.froalaEditor('undo.reset');
                                 element.froalaEditor('undo.saveStep');
                             }
+                        }
+                        else {
+                          element.froalaEditor('html.set', ngModel.$viewValue || '', true);
                         }
                     };
 
