@@ -1,3 +1,5 @@
+/*jshint -W034 */
+
 (function(window, angular, jQuery, undefined) {
   'use strict';
 
@@ -30,18 +32,18 @@
         require: 'ngModel',
         scope: scope,
         link: function(scope, element, attrs, ngModel) {
-          if (jQuery) element = jQuery(element);
+          if (jQuery) {
+            element = jQuery(element);
+          }
 
           var specialTag = false;
-          if (SPECIAL_TAGS.indexOf(element.prop("tagName").toLowerCase()) != -1) {
+          if (SPECIAL_TAGS.indexOf(element.prop("tagName").toLowerCase()) !== -1) {
             specialTag = true;
           }
 
           var ctrl = {
             editorInitialized: false
           };
-
-          var firstTime = false;
 
           scope.initMode = attrs.froalaInit ? MANUAL : AUTOMATIC;
 
@@ -65,7 +67,7 @@
                 // add tags on element
                 if (tags) {
                   for (var attr in tags) {
-                    if (tags.hasOwnProperty(attr) && attr != innerHtmlAttr) {
+                    if (tags.hasOwnProperty(attr) && attr !== innerHtmlAttr) {
                       element.attr(attr, tags[attr]);
                     }
                   }
@@ -103,12 +105,12 @@
               ctrl.options = angular.extend({}, defaultConfig, froalaConfig, scope.froalaOptions, froalaInitOptions);
 
               ctrl.registerEventsWithCallbacks('froalaEditor.initializationDelayed', function() {
-                ngModel.$render()
+                ngModel.$render();
               });
 
               ctrl.registerEventsWithCallbacks('froalaEditor.initialized', function () {
                 ctrl.editorInitialized = true;
-              })
+              });
 
               // Register events provided in the options
               // Registering events before initializing the editor will bind the initialized event correctly.
@@ -159,7 +161,7 @@
 
               for (var i = 0; i < attributeNodes.length; i++) {
                 var attrName = attributeNodes[i].name;
-                if (ctrl.options.angularIgnoreAttrs && ctrl.options.angularIgnoreAttrs.indexOf(attrName) != -1) {
+                if (ctrl.options.angularIgnoreAttrs && ctrl.options.angularIgnoreAttrs.indexOf(attrName) !== -1) {
                   continue;
                 }
                 attrs[attrName] = attributeNodes[i].value;
