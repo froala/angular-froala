@@ -102,10 +102,6 @@
               froalaInitOptions = (froalaInitOptions || {});
               ctrl.options = angular.extend({}, defaultConfig, froalaConfig, scope.froalaOptions, froalaInitOptions);
 
-              if (ctrl.options.immediateAngularModelUpdate) {
-                ctrl.listeningEvents.push('keyup');
-              }
-
               ctrl.registerEventsWithCallbacks('froalaEditor.initializationDelayed', function() {
                 ngModel.$render()
               });
@@ -136,7 +132,7 @@
 
           ctrl.initListeners = function() {
             if (ctrl.options.immediateAngularModelUpdate) {
-              ctrl.froalaElement.on('keyup', function() {
+              ctrl.froalaElement.on('froalaEditor.keyup', function() {
                 scope.$evalAsync(ctrl.updateModelView);
               });
             }
@@ -146,9 +142,10 @@
             });
 
             element.bind('$destroy', function() {
-              element.off(ctrl.listeningEvents.join(" "));
-              element.froalaEditor('destroy');
-              element = null;
+              if (element) {
+                element.froalaEditor('destroy');
+                element = null;
+              }
             });
           };
 
