@@ -150,6 +150,9 @@
           };
 
           ctrl.updateModelView = function() {
+            if (!element) {
+              return;
+            }
 
             var modelContent = null;
 
