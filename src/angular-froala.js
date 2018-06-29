@@ -94,8 +94,8 @@
               }
 
               if (ctrl.editorInitialized) {
- 		// Clean the value content, keeping default htmlAllowedTags and htmlAllowedAttrs from froala configuration.
-              	value = element.froalaEditor('clean.html', value, [], [], false);
+                // Clean the value content, keeping default htmlAllowedTags and htmlAllowedAttrs from froala configuration.
+                value = element.froalaEditor('clean.html', value, [], [], false);
                 return element.froalaEditor('node.isEmpty', jQuery('<div>' + value + '</div>').get(0));
               }
               return true;
