@@ -368,11 +368,12 @@
 
         function parseEndTag(tag, tagName) {
             var pos = 0, i;
-            tagName = tagName.toLowerCase();
+            
+            // Find the closest opened tag of the same type
             if (tagName) {
-                // Find the closest opened tag of the same type
+                var needle = tagName.toLowerCase();
                 for (pos = stack.length - 1; pos >= 0; pos--) {
-                    if (stack[pos] === tagName) {
+                    if (stack[pos] === needle) {
                         break;
                     }
                 }
