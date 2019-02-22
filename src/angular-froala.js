@@ -30,8 +30,12 @@
         require: 'ngModel',
         scope: scope,
         link: function(scope, element, attrs, ngModel) {
-          if (jQuery) element = jQuery(element);
-
+          if (jQuery){ element = jQuery(element); 
+            // Create a blur event to update the data of ngModel
+            element.on('blur', function () {
+              ngModel.$setViewValue(element.innerHTML.text())
+            });
+          }
           var specialTag = false;
           if (SPECIAL_TAGS.indexOf(element.prop("tagName").toLowerCase()) != -1) {
             specialTag = true;
