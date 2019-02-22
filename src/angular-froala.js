@@ -111,6 +111,7 @@
 
               ctrl.registerEventsWithCallbacks('froalaEditor.initialized', function () {
                 ctrl.editorInitialized = true;
+                ngModel.$render()
               })
 
               // Register events provided in the options
