@@ -18,13 +18,15 @@
 				}
 			}
 		};
-
+		$scope.text="temp";
+		$scope.myHtml="blurevent";
 		$scope.initialize = function(initControls) {
 			$scope.initControls = initControls;
 			$scope.deleteAll = function() {
 				initControls.getEditor()('html.set', '');
 			};
 		};
+		
 
 		$scope.myTitle = '<span style="font-family: Verdana,Geneva,sans-serif; font-size: 30px;">My Document\'s Title</span><span style="font-size: 18px;"></span></span>';
 		$scope.sample2Text = '';
