@@ -33,7 +33,7 @@
           if (jQuery){ element = jQuery(element); 
             // Create a blur event to update the data of ngModel
             element.on('blur', function () {
-              ngModel.$setViewValue(element.innerHTML.text())
+              ngModel.$setViewValue(element.froalaEditor('html.get',true));
             });
           }
           var specialTag = false;
