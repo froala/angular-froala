@@ -587,6 +587,71 @@ function $SanitizeProvider() {
       replace(/>/g, '&gt;');
   }
 
+// Custom logic for accepting certain style options only - angularFroala
+// Currently allows only the color, background-color, text-align, direction, font-family, font-size, float, width and height attributes
+// all other attributes should be easily done through classes.
+  function validStyles(styleAttr) {
+      var result = '';
+      var styleArray = styleAttr.split(';');
+      angular.forEach(styleArray, function (value) {
+          var v = value.split(':');
+          if (v.length === 2) {
+              var key = trim(v[0].toLowerCase());
+              value = trim(v[1].toLowerCase());
+              if (
+                  (key === 'color' || key === 'background-color') && (
+                      value.match(/^rgb\([0-9%,\. ]*\)$/i) ||
+                      value.match(/^rgba\([0-9%,\. ]*\)$/i) ||
+                      value.match(/^hsl\([0-9%,\. ]*\)$/i) ||
+                      value.match(/^hsla\([0-9%,\. ]*\)$/i) ||
+                      value.match(/^#[0-9a-f]{3,6}$/i) ||
+                      value.match(/^[a-z]*$/i)
+                  ) ||
+                  key === 'text-align' && (
+                      value === 'left' ||
+                      value === 'right' ||
+                      value === 'center' ||
+                      value === 'justify'
+                  ) ||
+                  key === 'float' && (
+                      value === 'left' ||
+                      value === 'right' ||
+                      value === 'none'
+                  ) ||
+                  key === 'direction' && (
+                      value === 'rtl' ||
+                      value === 'ltr'
+                  ) ||
+                  key === 'font-family' && (
+                      value === 'arial,helvetica,sans-serif' ||
+                      value === 'georgia,serif' ||
+                      value === 'impact,charcoal,sans-serif' ||
+                      value === 'tahoma,geneva,sans-serif' ||
+                      value === "'times new roman',times,serif" ||
+                      value === 'verdana,geneva,sans-serif'
+                  ) ||
+                  (key === 'width' || key === 'height' || key === 'font-size' || key === 'margin-left') && (
+                      value.match(/[0-9\.]*(px|em|rem|%)/)
+                  )
+              ) {
+                  result += key + ': ' + value + ';';
+              }
+          }
+      });
+      return result;
+  }
+
+  // this function is used to manually allow specific attributes on specific tags with certain prerequisites
+  function validCustomTag(tag, attrs, lkey, value) {
+      // catch the div placeholder for the iframe replacement
+      if (tag === 'img' && attrs['ta-insert-video']) {
+          if (lkey === 'ta-insert-video' || lkey === 'allowfullscreen' || lkey === 'frameborder' || (lkey === 'contenteditble' && value === 'false')) {
+              return true;
+          }
+      }
+      return false;
+  }
+
   /**
    * create an HTML/XML writer which writes to buffer
    * @param {Array} buf use buf.join('') to get out sanitized html string
@@ -612,7 +677,7 @@ function $SanitizeProvider() {
           forEach(attrs, function(value, key) {
             var lkey = lowercase(key);
             var isImage = (tag === 'img' && lkey === 'src') || (lkey === 'background');
-            if (validAttrs[lkey] === true &&
+              if ((lkey === 'style' && (value = validStyles(value)) !== '') || validCustomTag(tag, attrs, lkey, value) || validAttrs[lkey] === true &&
               (uriAttrs[lkey] !== true || uriValidator(value, isImage))) {
               out(' ');
               out(key);
