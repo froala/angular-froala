@@ -82,11 +82,10 @@
               else {
                 if (ctrl.editorInitialized) {
                   // Set HTML.
-                  element.froalaEditor('html.set', ngModel.$viewValue || '', true);
-
+                  element.froalaEditor.html.set(ngModel.$viewValue || '')
                   //This will reset the undo stack everytime the model changes externally. Can we fix this?
-                  element.froalaEditor('undo.reset');
-                  element.froalaEditor('undo.saveStep');
+                  element.froalaEditor.undo.reset();
+                  element.froalaEditor.undo.saveStep();
                 }
               }
             };
@@ -97,7 +96,7 @@
               }
 
               if (ctrl.editorInitialized) {
-                return element.froalaEditor('node.isEmpty', jQuery('<div>' + value + '</div>').get(0));
+                return element.froalaEditor.node.isEmpty(jQuery('<div>' + value + '</div>')).get(0);
               }
 
               return true;
@@ -110,11 +109,11 @@
               froalaInitOptions = (froalaInitOptions || {});
               ctrl.options = angular.extend({}, defaultConfig, froalaConfig, scope.froalaOptions, froalaInitOptions);
 
-              ctrl.registerEventsWithCallbacks('froalaEditor.initializationDelayed', function() {
+              ctrl.registerEventsWithCallbacks('initializationDelayed', function() {
                 ngModel.$render()
               });
 
-              ctrl.registerEventsWithCallbacks('froalaEditor.initialized', function () {
+              ctrl.registerEventsWithCallbacks('initialized', function () {
                 ctrl.editorInitialized = true;
                 ngModel.$render()
               })
@@ -127,10 +126,9 @@
                 }
               }
 
-              element.innerHTML =
-                ctrl.froalaElement = element.froalaEditor(ctrl.options).data('froala.editor').$el;
-              ctrl.froalaEditor = angular.bind(element, element.froalaEditor);
-              ctrl.initListeners();
+              ctrl.froalaEditor = element.froalaEditor = new FroalaEditor('#'+element.attr('id'),ctrl.options);
+              element.innerHTML = ctrl.froalaElement = ctrl.froalaEditor.$el[0];
+                ctrl.initListeners();
 
               //assign the froala instance to the options object to make methods available in parent scope
               if (scope.froalaOptions) {
@@ -141,24 +139,27 @@
 
           ctrl.initListeners = function() {
             if (ctrl.options.immediateAngularModelUpdate) {
-              ctrl.froalaElement.on('froalaEditor.keyup', function() {
+              ctrl.registerEventsWithCallbacks('keyup', function() {
                 scope.$evalAsync(ctrl.updateModelView);
               });
             }
 
-            element.on('froalaEditor.contentChanged', function() {
+            ctrl.registerEventsWithCallbacks('contentChanged', function() {
               scope.$evalAsync(ctrl.updateModelView);
             });
 
             element.bind('$destroy', function() {
               if (element) {
-                element.froalaEditor('destroy');
+                element.froalaEditor.destroy();
                 element = null;
               }
             });
           };
 
           ctrl.updateModelView = function() {
+            if (!element) {
+              return;
+            }
 
             var modelContent = null;
 
@@ -178,7 +179,7 @@
               }
               modelContent = attrs;
             } else {
-              var returnedHtml = element.froalaEditor('html.get');
+              var returnedHtml = element.froalaEditor.html.get();
               if (angular.isString(returnedHtml)) {
                 modelContent = returnedHtml;
               }
@@ -193,7 +194,10 @@
           ctrl.registerEventsWithCallbacks = function(eventName, callback) {
             if (eventName && callback) {
               ctrl.listeningEvents.push(eventName);
-              element.on(eventName, callback);
+              if(!ctrl.options.events){
+                ctrl.options.events = {};
+              } 
+              ctrl.options.events[eventName] = callback;
             }
           };
 
@@ -203,7 +207,7 @@
               initialize: ctrl.createEditor,
               destroy: function() {
                 if (_ctrl.froalaEditor) {
-                  _ctrl.froalaEditor('destroy');
+                  _ctrl.froalaEditor.destroy();
                   _ctrl.editorInitialized = false;
                 }
               },
