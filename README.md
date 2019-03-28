@@ -14,12 +14,10 @@ This repository contains bindings for the latest version of the Froala Editor (v
 
 1. Clone this repo or download the zip.
 
-2. Run `bower install` or Download the editor from [https://www.froala.com/wysiwyg-editor/](https://www.froala.com/wysiwyg-editor/) and jQuery
+2. Run `bower install` or Download the editor from [https://www.froala.com/wysiwyg-editor/](https://www.froala.com/wysiwyg-editor/)
 
-3. Load Froala WYSIWYG editor (and all desired plugins), jQuery and the angular-froala files into your project.  
+3. Load Froala WYSIWYG editor (and all desired plugins), and the angular-froala files into your project.  
  - src/angular-froala.js
-
- ***NB***: You must ensure jQuery is included *before* angular, otherwise Angular will use it's own jqLite which doesn't provide the necessary functions.
 
 ## Update editor
 
