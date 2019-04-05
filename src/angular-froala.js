@@ -1,4 +1,4 @@
-(function(window, angular, jQuery, undefined) {
+(function(window, angular, undefined) {
   'use strict';
 
   angular.module('froala', [])
@@ -30,13 +30,12 @@
         require: 'ngModel',
         scope: scope,
         link: function(scope, element, attrs, ngModel) {
-          if (jQuery){ element = jQuery(element); 
             // Create a blur event to update the data of ngModel
             element.on('blur', function () {
               ngModel.$setViewValue(element.innerHTML.text())
             });
           
-          }
+        
           var specialTag = false;
           if (SPECIAL_TAGS.indexOf(element.prop("tagName").toLowerCase()) != -1) {
             specialTag = true;
@@ -93,10 +92,6 @@
             ngModel.$isEmpty = function(value) {
               if (!value) {
                 return true;
-              }
-
-              if (ctrl.editorInitialized) {
-                return element.froalaEditor.node.isEmpty(jQuery('<div>' + value + '</div>')).get(0);
               }
 
               return true;
@@ -238,4 +233,4 @@
         }
       };
     }]);
-})(window, window.angular, window.jQuery);
+})(window, window.angular);

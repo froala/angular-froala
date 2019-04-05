@@ -20,7 +20,6 @@
   "browser": true,
   "devel": true,
   "jasmine": true,
-  "jquery": true,
   // Custom Globals
   "globals": {
     "module": true,
