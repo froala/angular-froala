@@ -13,7 +13,7 @@
 			charCounterCount: false,
 			toolbarInline: true,
 			events: {
-				'froalaEditor.initialized': function() {
+				'initialized': function() {
 					console.log('initialized');
 				}
 			}
@@ -22,7 +22,7 @@
 		$scope.initialize = function(initControls) {
 			$scope.initControls = initControls;
 			$scope.deleteAll = function() {
-				initControls.getEditor()('html.set', '');
+				initControls.getEditor().html.set('');
 			};
 		};
 

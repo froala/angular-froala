@@ -13,12 +13,10 @@
     "text",
     "editor",
     "wysiwyg",
-    "jquery-plugin",
     "rich editor",
     "rich text editor",
     "rte",
     "javascript",
-    "jquery"
   ],
   "license": "MIT",
   "ignore": [
