@@ -149,6 +149,144 @@ $scope.inputOptions = {
 	angularIgnoreAttrs: ['class', 'ng-model', 'id']
 };
  ```
+## Use with Requirejs
+
+	Add require.js in js/lib folder.
+
+_app.js_
+
+```javascript
+define(["jquery","froala_editor","angular","angularroute","angular-froala","angularresource"], function($,a,b,c,d,e) {
+
+		var myApp = angular.module('myApp', ['froala']).
+```
+_index.html_
+
+```html
+ <script data-main="js/app" src="../js/lib/require.js"></script>
+  <script>
+  var fe_plugins = ['align', 'char_counter', 'code_view', 'colors', 'draggable', 'emoticons',
+                      'entities', 'file', 'font_family', 'font_size', 'fullscreen',
+                      'image_manager', 'image', 'inline_style', 'line_breaker',
+                      'link', 'lists', 'paragraph_format', 'paragraph_style', 'quote',
+                      'save', 'table', 'url', 'video']
+    // Define paths.
+    var paths = {
+      'app': '../../app',
+      'jquery': 'https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min',
+      'angular': '../../../bower_components/angular/angular.min',
+      'froala_editor': '../../../bower_components/froala-wysiwyg-editor/js/froala_editor.min',
+      'angular-froala': '../../../src/angular-froala',
+      'angularroute': '../../../bower_components/angular-route/angular-route',
+      'angularresource': '../../../bower_components/angular-resource/angular-resource',
+      'angular-mocks':'../../../bower_components/angular-mocks/angular-mocks'
+    };
+    // Add Froala Editor plugins to path.
+    for (var i = 0; i < fe_plugins.length; i++) {
+      paths['fe_' + fe_plugins[i]] = '../../../../../js/plugins/' + fe_plugins[i] + '.min';
+    }
+    var shim = {
+      'froala_editor': {deps: ['jquery']},
+      'angular-froala': {deps: ['angular'],exports: 'Backbone'},
+      'angularroute': {deps: ['angular']},
+      'angularresource': {deps: ['angular']},
+      'angular':{exports:'angular'},
+      'angularMocks': {
+			deps:['angular'],
+			'exports':'angular.mock'
+		}
+    };
+    for (var i = 0; i < fe_plugins.length; i++) {
+      shim['fe_' + fe_plugins[i]] = {
+        deps: ['froala_editor']
+      }
+    }
+    // Init RequireJS.
+    requirejs.config({
+      'baseUrl': 'js/lib',
+      'paths': paths,
+      shim: shim
+    });
+    // Load the main app module to start the app
+    requirejs(["angular"],function()
+    {
+    requirejs(["angular-froala"],function(angular_froala)
+    {
+    requirejs(["app"]);
+    })
+  })
+  </script>
+
+```
+_angular-froala.js_
+
+```javascript
+
+define(["jquery","froala_editor","angular","angularroute"], function($,a,b,c) {
+
+  (function(window, angular, jQuery, undefined) {
+
+```
+
+## Use with Webpack
+
+_webpack.config.js
+
+```javascript 
+
+module.exports = {
+  optimization:{
+},
+  entry: "./index.js",
+  output: {
+    filename: "./bundle.js"
+  },
+  module:{
+  rules:[
+    {
+     test: /\.scss$/,
+     loader: 'style!css!sass'
+    },
+    {
+      test: /\.js$/,
+      loader: 'babel-loader',
+      exclude: /node_modules/
+    }
+  ]},
+  resolve: {
+    alias: {
+        jQuery: "./bower_components/jquery/dist/jquery.js",
+        $:"./bower_components/jquery/dist/jquery.js",
+        froala_editor: "./bower_components/froala-wysiwyg-editor/js/froala_editor.min.js",
+        angularfroala: "./angularfroala.js"
+      }
+   }
+}
+
+```
+
+_app.js_
+
+```javascript
+
+let $ = require('jquery');
+window.$ = $;
+window.jQuery = $;
+require('angular')
+require('froala-editor/js/froala_editor.min.js');
+require('../src/angular-froala')
+ var myApp = angular.module('myApp', ['froala']).
+ ....
+
+ ```
+
+ _index.html_
+
+ ```html
+
+ <script type="text/javascript" src="../dist/bundle.js"></script>
+
+ ```
 
 ### Manual Instantiation
 Sometimes you want to control when the Froala Editor will be instantiated. The directive includes a **froala-init** attributes which will provide you with the controls required to initialize and close the editor.
