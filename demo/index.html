@@ -24,6 +24,8 @@
   <link rel="stylesheet" href="../bower_components/froala-wysiwyg-editor/css/plugins/table.css">
   <link rel="stylesheet" href="../bower_components/froala-wysiwyg-editor/css/plugins/video.css">
   <link rel="stylesheet" href="../bower_components/froala-wysiwyg-editor/css/plugins/special_characters.css">
+  <link rel="stylesheet" href="../bower_components/froala-wysiwyg-editor/css/third_party/font_awesome.min.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
 	<!-- Include Froala Editor -->
   <script src="../bower_components/froala-wysiwyg-editor/js/froala_editor.pkgd.min.js"></script>
@@ -39,6 +41,7 @@
   <script src="../bower_components/froala-wysiwyg-editor/js/plugins/file.min.js"></script>
   <script src="../bower_components/froala-wysiwyg-editor/js/plugins/font_family.min.js"></script>
   <script src="../bower_components/froala-wysiwyg-editor/js/plugins/font_size.min.js"></script>
+  <script src="../bower_components/froala-wysiwyg-editor/js/third_party/font_awesome.min.js"></script>
   <script src="../bower_components/froala-wysiwyg-editor/js/plugins/fullscreen.min.js"></script>
   <script src="../bower_components/froala-wysiwyg-editor/js/plugins/image.min.js"></script>
   <script src="../bower_components/froala-wysiwyg-editor/js/plugins/image_manager.min.js"></script>
@@ -70,7 +73,7 @@
 
     <div class="sample">
       <h2>Sample 2: Full Editor</h2>
-      <textarea id="froala-sample-2" froala ng-model="sample2Text"></textarea>
+      <textarea id="froala-sample-2" froala ng-model="sample2Text" contentEditable="true" ng-model-options="{ updateOn: 'blur'}"></textarea>
       <h4>Rendered Content:</h4>
       <div froala-view="sample2Text"></div>
     </div>
