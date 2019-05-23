@@ -17,7 +17,7 @@
         froalaOptions: '=froala',
         initFunction: '&froalaInit'
       };
- 
+
       froalaConfig = froalaConfig || {};
 
       // Constants
@@ -32,10 +32,10 @@
         link: function(scope, element, attrs, ngModel) {
             // Create a blur event to update the data of ngModel
             element.on('blur', function () {
-              ngModel.$setViewValue(element.innerHTML.text())
+              ngModel.$setViewValue(element[0].innerHTML.text())
             });
-          
-        
+
+
           var specialTag = false;
           if (SPECIAL_TAGS.indexOf(element.prop("tagName").toLowerCase()) != -1) {
             specialTag = true;
@@ -81,10 +81,10 @@
               else {
                 if (ctrl.editorInitialized) {
                   // Set HTML.
-                  element.froalaEditor.html.set(ngModel.$viewValue || '')
+                  ctrl.froalaEditor.html.set(ngModel.$viewValue || '')
                   //This will reset the undo stack everytime the model changes externally. Can we fix this?
-                  element.froalaEditor.undo.reset();
-                  element.froalaEditor.undo.saveStep();
+                  ctrl.froalaEditor.undo.reset();
+                  ctrl.froalaEditor.undo.saveStep();
                 }
               }
             };
@@ -99,7 +99,6 @@
           };
 
           ctrl.createEditor = function(froalaInitOptions) {
-            ctrl.listeningEvents = ['froalaEditor'];
             if (!ctrl.editorInitialized) {
               froalaInitOptions = (froalaInitOptions || {});
               ctrl.options = angular.extend({}, defaultConfig, froalaConfig, scope.froalaOptions, froalaInitOptions);
@@ -113,17 +112,15 @@
                 ngModel.$render()
               })
 
-              // Register events provided in the options
-              // Registering events before initializing the editor will bind the initialized event correctly.
-              for (var eventName in ctrl.options.events) {
-                if (ctrl.options.events.hasOwnProperty(eventName)) {
-                  ctrl.registerEventsWithCallbacks(eventName, ctrl.options.events[eventName]);
-                }
+              ctrl.registerEventsWithCallbacks('initialized', ctrl.options.events && ctrl.options.events.initialized)
+
+              if (!ctrl.options.events) ctrl.options.events = {};
+              ctrl.options.events.initialized = function () {
+                ctrl.initListeners();
               }
 
-              ctrl.froalaEditor = element.froalaEditor = new FroalaEditor('#'+element.attr('id'),ctrl.options);
+              ctrl.froalaEditor = new FroalaEditor(element[0], ctrl.options);
               element.innerHTML = ctrl.froalaElement = ctrl.froalaEditor.$el[0];
-                ctrl.initListeners();
 
               //assign the froala instance to the options object to make methods available in parent scope
               if (scope.froalaOptions) {
@@ -134,18 +131,24 @@
 
           ctrl.initListeners = function() {
             if (ctrl.options.immediateAngularModelUpdate) {
-              ctrl.registerEventsWithCallbacks('keyup', function() {
+              ctrl.froalaEditor.events.on('keyup', function() {
                 scope.$evalAsync(ctrl.updateModelView);
               });
             }
 
-            ctrl.registerEventsWithCallbacks('contentChanged', function() {
+            ctrl.froalaEditor.events.on('contentChanged', function() {
               scope.$evalAsync(ctrl.updateModelView);
             });
 
+            if (ctrl.initEvents) {
+              for (var i = 0; i < ctrl.initEvents; i++) {
+                ctrl.initEvents[i].call(ctrl.froalaEditor);
+              }
+            }
+
             element.bind('$destroy', function() {
               if (element) {
-                element.froalaEditor.destroy();
+                ctrl.froalaEditor.destroy();
                 element = null;
               }
             });
@@ -174,7 +177,7 @@
               }
               modelContent = attrs;
             } else {
-              var returnedHtml = element.froalaEditor.html.get();
+              var returnedHtml = ctrl.froalaEditor.html.get();
               if (angular.isString(returnedHtml)) {
                 modelContent = returnedHtml;
               }
@@ -188,11 +191,17 @@
 
           ctrl.registerEventsWithCallbacks = function(eventName, callback) {
             if (eventName && callback) {
-              ctrl.listeningEvents.push(eventName);
               if(!ctrl.options.events){
                 ctrl.options.events = {};
-              } 
-              ctrl.options.events[eventName] = callback;
+              }
+
+              if (eventName == 'initialized') {
+                if (!ctrl.initEvents) ctrl.initEvents = [];
+                ctrl.initEvents.push(callback);
+              }
+              else {
+                ctrl.options.events[eventName] = callback;
+              }
             }
           };
 
