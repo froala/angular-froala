@@ -80,7 +80,7 @@ The *angular-froala* directive exposes the following additional option:
 
 ### Methods
 
-To use the methods available, access the editor instance from your froalaOptions object `$scope.options.froalaEditor(method)` and use it as described in the [method docs](http://froala.com/wysiwyg-editor/docs/methods). example:
+To use the methods available, access the editor instance from your froalaOptions object `$scope.options.froalaEditor.methodName()` and use it as described in the [method docs](http://froala.com/wysiwyg-editor/docs/methods). example:
 
 ```javascript
 function myCtrl($scope){
@@ -88,9 +88,9 @@ function myCtrl($scope){
 	$scope.froalaOptions = {
 		toolbarButtons : ["bold", "italic", "underline", "|", "align", "formatOL", "formatUL"],
 		events: {
-			'froalaEditor.initialized': function () {
+			'froalaEditor': function () {
 				// Use the methods like this.
-				$scope.froalaOptions.froalaEditor('selection.get');
+				$scope.froalaOptions.froalaEditor.selection.get();
 			}
 		}
 	}
@@ -107,7 +107,7 @@ _app.js_
 $scope.froalaOptions = {
 	placeholder: "Edit Me",
 	events : {
-		'froalaEditor.focus' : function(e, editor) {/* ... */}
+		focus: function(e, editor) {/* ... */}
 	}
 }
 ```
