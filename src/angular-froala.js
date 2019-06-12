@@ -107,20 +107,18 @@
                 ngModel.$render()
               });
 
-              ctrl.registerEventsWithCallbacks('initialized', function () {
-                ctrl.editorInitialized = true;
-                ngModel.$render()
-              })
-
               ctrl.registerEventsWithCallbacks('initialized', ctrl.options.events && ctrl.options.events.initialized)
-
+              var initEvent = ctrl.options.events.initialized;
               if (!ctrl.options.events) ctrl.options.events = {};
               ctrl.options.events.initialized = function () {
+                initEvent && initEvent();
                 ctrl.initListeners();
+                ctrl.editorInitialized = true;
+                ngModel.$render()
               }
 
               ctrl.froalaEditor = new FroalaEditor(element[0], ctrl.options);
-              element.innerHTML = ctrl.froalaElement = ctrl.froalaEditor.$el[0];
+              element[0].innerHTML = ctrl.froalaElement = ctrl.froalaEditor.$el[0];
 
               //assign the froala instance to the options object to make methods available in parent scope
               if (scope.froalaOptions) {

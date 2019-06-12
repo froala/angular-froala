@@ -13,8 +13,11 @@
 			charCounterCount: false,
 			toolbarInline: true,
 			events: {
-				'initialized': function() {
-					console.log('initialized');
+        'contentChanged':function(e, editor) {
+          console.log('content changed',$scope.titleOptions.froalaEditor.html.get());
+        },
+				'initialized': function(editor) {
+					console.log('initialized', this);
 				}
 			}
 		};
@@ -22,7 +25,7 @@
 		$scope.initialize = function(initControls) {
 			$scope.initControls = initControls;
 			$scope.deleteAll = function() {
-				initControls.getEditor().html.set('');
+				initControls.getEditor().html.set('34434');
 			};
 		};
 
