@@ -32,7 +32,7 @@
         link: function(scope, element, attrs, ngModel) {
             // Create a blur event to update the data of ngModel
             element.on('blur', function () {
-              ngModel.$setViewValue(element[0].innerHTML.text())
+              ngModel.$setViewValue(element[0].innerHTML)
             });
 
 
@@ -116,9 +116,10 @@
                 ctrl.editorInitialized = true;
                 ngModel.$render()
               }
-
+              console.log('@@@@@@@@@@@@@@@', element[0].innerHTML);
               ctrl.froalaEditor = new FroalaEditor(element[0], ctrl.options);
-              element[0].innerHTML = ctrl.froalaElement = ctrl.froalaEditor.$el[0];
+              // ctrl.froalaElement = ctrl.froalaEditor.$el[0];
+              // element[0].innerHTML =  ctrl.froalaEditor.$el[0].innerHTML;
 
               //assign the froala instance to the options object to make methods available in parent scope
               if (scope.froalaOptions) {

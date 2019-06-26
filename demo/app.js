@@ -31,7 +31,7 @@
 
 		$scope.myTitle = '<span style="font-family: Verdana,Geneva,sans-serif; font-size: 30px;">My Document\'s Title</span><span style="font-size: 18px;"></span></span>';
 		$scope.sample2Text = '';
-		$scope.sample3Text = '';
+		$scope.sample3Text = 'Check out the <a href="https://www.froala.com/wysiwyg-editor">Froala Editor</a>';
 
 		$scope.imgModel = {src: 'image.jpg'};
 
