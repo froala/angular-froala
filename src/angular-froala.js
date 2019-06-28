@@ -116,10 +116,7 @@
                 ctrl.editorInitialized = true;
                 ngModel.$render()
               }
-              console.log('@@@@@@@@@@@@@@@', element[0].innerHTML);
               ctrl.froalaEditor = new FroalaEditor(element[0], ctrl.options);
-              // ctrl.froalaElement = ctrl.froalaEditor.$el[0];
-              // element[0].innerHTML =  ctrl.froalaEditor.$el[0].innerHTML;
 
               //assign the froala instance to the options object to make methods available in parent scope
               if (scope.froalaOptions) {
