@@ -2,7 +2,7 @@
   "name": "angular-froala",
   "version": "2.9.7",
   "authors": [
-    "Cameron Gallarno <cgallarno@gmail.com>"
+    "Froala Labs <kapil.garg.techy@gmail.com>"
   ],
   "description": "Angular.js bindings for Froala WYSIWYG HTML rich text editor.",
   "main": "src/angular-froala.js",
