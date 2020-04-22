@@ -1,8 +1,8 @@
 {
   "name": "angular-froala",
-  "version": "3.1.0",
+  "version": "3.1.1",
   "authors": [
-    "Cameron Gallarno <cgallarno@gmail.com>"
+    "Froala Labs <kapil.garg.techy@gmail.com>"
   ],
   "description": "Angular.js bindings for Froala WYSIWYG HTML rich text editor.",
   "main": "src/angular-froala.js",
@@ -27,7 +27,7 @@
     "tests"
   ],
   "dependencies": {
-    "froala-wysiwyg-editor": "3.1.0",
+    "froala-wysiwyg-editor": "3.1.1",
     "angular": ">=1.0"
   },
   "devDependencies": {
