@@ -1,6 +1,6 @@
 {
   "name": "angular-froala",
-  "version": "2.9.6",
+  "version": "2.9.7",
   "description": "Angular.js bindings for Froala WYSIWYG HTML rich text editor",
   "main": "src/angular-froala.js",
   "scripts": {
@@ -25,8 +25,7 @@
     "jquery"
   ],
   "contributors": [
-    "Cameron Gallarno <cgallarno@gmail.com>",
-    "Stefan Neculai <stefan@froala.com>"
+    "Froala Labs <kapil.garg.techy@gmail.com>"
   ],
   "license": "MIT",
   "bugs": {
@@ -51,6 +50,6 @@
   },
   "dependencies": {
     "coffee-script": "^1.12.7",
-    "froala-editor": "2.9.6"
+    "froala-editor": "2.9.7"
   }
 }
