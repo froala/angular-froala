@@ -4,7 +4,8 @@
   "description": "Angular.js bindings for Froala WYSIWYG HTML rich text editor",
   "main": "src/angular-froala.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "http-server -o"
   },
   "repository": {
     "type": "git",
@@ -49,6 +50,7 @@
   },
   "dependencies": {
     "coffee-script": "^1.12.7",
-    "froala-editor": "3.2.1"
+    "froala-editor": "3.2.1",
+    "http-server": "^0.12.3"
   }
 }

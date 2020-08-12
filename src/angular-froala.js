@@ -98,10 +98,19 @@
             };
           };
 
+          ctrl.clone = function(item) {
+            let eventData = item.events;
+            let newItem = JSON.parse(JSON.stringify(item))
+            newItem.events = eventData;
+            return newItem
+          }
+
           ctrl.createEditor = function(froalaInitOptions) {
             if (!ctrl.editorInitialized) {
               froalaInitOptions = (froalaInitOptions || {});
               ctrl.options = angular.extend({}, defaultConfig, froalaConfig, scope.froalaOptions, froalaInitOptions);
+
+              ctrl.options = ctrl.clone(ctrl.options)
 
               ctrl.registerEventsWithCallbacks('initializationDelayed', function() {
                 ngModel.$render()
