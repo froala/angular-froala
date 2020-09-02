@@ -79,7 +79,7 @@
                 }
               }
               else {
-                if (ctrl.editorInitialized) {
+                if (ctrl.editorInitialized && ctrl.froalaEditor.html) {
                   // Set HTML.
                   ctrl.froalaEditor.html.set(ngModel.$viewValue || '')
                   //This will reset the undo stack everytime the model changes externally. Can we fix this?
@@ -126,16 +126,19 @@
           };
 
           ctrl.initListeners = function() {
-            if (ctrl.options.immediateAngularModelUpdate) {
-              ctrl.froalaEditor.events.on('keyup', function() {
-                scope.$evalAsync(ctrl.updateModelView);
-              });
-            }
-
-            ctrl.froalaEditor.events.on('contentChanged', function() {
-              scope.$evalAsync(ctrl.updateModelView);
-            });
-
+              // Check if we have events on the editor.
+              if (ctrl.froalaEditor.events) {
+                if (ctrl.options.immediateAngularModelUpdate) {
+                  ctrl.froalaEditor.events.on('keyup', function() {
+                    scope.$evalAsync(ctrl.updateModelView);
+                  });
+                }
+    
+                ctrl.froalaEditor.events.on('contentChanged', function() {
+                  scope.$evalAsync(ctrl.updateModelView);
+                });
+              }
+           
             if (ctrl.initEvents) {
               for (var i = 0; i < ctrl.initEvents; i++) {
                 ctrl.initEvents[i].call(ctrl.froalaEditor);
