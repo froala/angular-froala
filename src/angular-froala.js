@@ -102,6 +102,7 @@
             if (!ctrl.editorInitialized) {
               froalaInitOptions = (froalaInitOptions || {});
               ctrl.options = angular.extend({}, defaultConfig, froalaConfig, scope.froalaOptions, froalaInitOptions);
+              ctrl.options.events = angular.extend({}, ctrl.options.events);
 
               ctrl.registerEventsWithCallbacks('initializationDelayed', function() {
                 ngModel.$render()
