@@ -49,6 +49,6 @@
   },
   "dependencies": {
     "coffee-script": "^1.12.7",
-    "froala-editor": "3.2.5-2"
+    "froala-editor": "3.2.6"
   }
 }
