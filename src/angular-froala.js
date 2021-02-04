@@ -102,6 +102,9 @@
             if (!ctrl.editorInitialized) {
               froalaInitOptions = (froalaInitOptions || {});
               ctrl.options = angular.extend({}, defaultConfig, froalaConfig, scope.froalaOptions, froalaInitOptions);
+              // If a previous editor instance is still saved into these options, remove it, so we don't get circular reference errors.
+              delete ctrl.options.froalaEditor;
+              ctrl.options.events = angular.extend({}, ctrl.options.events);
 
               ctrl.registerEventsWithCallbacks('initializationDelayed', function() {
                 ngModel.$render()
