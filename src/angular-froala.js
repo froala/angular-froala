@@ -1,3 +1,5 @@
+import FroalaEditor from 'froala-editor/js/froala_editor.min'
+
 (function(window, angular, undefined) {
   'use strict';
 
