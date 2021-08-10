@@ -88,7 +88,7 @@ function myCtrl($scope){
 	$scope.froalaOptions = {
 		toolbarButtons : ["bold", "italic", "underline", "|", "align", "formatOL", "formatUL"],
 		events: {
-			'froalaEditor': function () {
+			'initialized': function () {
 				// Use the methods like this.
 				$scope.froalaOptions.froalaEditor.selection.get();
 			}
@@ -107,7 +107,7 @@ _app.js_
 $scope.froalaOptions = {
 	placeholder: "Edit Me",
 	events : {
-		focus: function(e, editor) {/* ... */}
+		initialized: function() {/* ... */}
 	}
 }
 ```
