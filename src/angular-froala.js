@@ -149,12 +149,11 @@
               }
             }
 
-            if (!element) {
-              return;
-            }
-            element.bind('$destroy', function () {
-              ctrl.froalaEditor.destroy();
-              element = null;
+            element.bind('$destroy', function() {
+              if (element) {
+                ctrl.froalaEditor.destroy();
+                element = null;
+              }
             });
           };
 
