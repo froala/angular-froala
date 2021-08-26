@@ -117,13 +117,10 @@
                 ngModel.$render()
               }
               //https://github.com/froala-labs/froala-editor-js-2/issues/3049
-              let elementOptions = {}
-              Object.keys(ctrl.options).forEach(key => {
-                if (key !== "froalaEditor") {
-                  elementOptions[key] = ctrl.options[key];
-                }
-              });
-              ctrl.froalaEditor = new FroalaEditor(element[0], ctrl.options = elementOptions);
+              if (ctrl.options.froalaEditor) {
+                delete ctrl.options.froalaEditor;
+              }
+              ctrl.froalaEditor = new FroalaEditor(element[0], ctrl.options);
 
               //assign the froala instance to the options object to make methods available in parent scope
               if (scope.froalaOptions) {
