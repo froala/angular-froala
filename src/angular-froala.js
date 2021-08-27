@@ -116,6 +116,10 @@
                 ctrl.editorInitialized = true;
                 ngModel.$render()
               }
+              //https://github.com/froala-labs/froala-editor-js-2/issues/3049
+              if (ctrl.options.froalaEditor) {
+                delete ctrl.options.froalaEditor;
+              }
               ctrl.froalaEditor = new FroalaEditor(element[0], ctrl.options);
 
               //assign the froala instance to the options object to make methods available in parent scope
@@ -142,11 +146,12 @@
               }
             }
 
+            if (!element) {
+              return;
+            }
             element.bind('$destroy', function() {
-              if (element) {
                 ctrl.froalaEditor.destroy();
                 element = null;
-              }
             });
           };
 
