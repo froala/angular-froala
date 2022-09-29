@@ -202,15 +202,15 @@ echo "Docker-compose is in : /services/${SERVICE_NAME} "
 
 # validate deployment
 #
-sleep 60
-RET_CODE=`curl -k -s -o /tmp/notimportant.txt -w "%{http_code}" https://${DEPLOYMENT_URL}`
-echo "validation code: $RET_CODE for  https://${DEPLOYMENT_URL}"
+sleep 30
+RET_CODE=`curl -k -s -o /tmp/notimportant.txt -w "%{http_code}" https://${DEPLOYMENT_URL}/demo/index.html`
+echo "validation code: $RET_CODE for  https://${DEPLOYMENT_URL}/demo/index.html"
 if [ $RET_CODE -ne 200 ]; then 
 	echo "Deployment validation failed!!! Please check pipeline logs." 
 	exit -1 
 else 
-	echo " Service available at URL: https://${DEPLOYMENT_URL}"
-	exit 0
+	echo " Service available at URL: https://${DEPLOYMENT_URL}/demo/index.html"
+
 fi
 
 
@@ -246,7 +246,8 @@ if [ ${EXISTING_DEPLOYMENTS} -gt ${MAX_DEPLOYMENTS_NR} ]; then
 	REM='" sudo docker rm '
 	RCMD="${RCMD} $REM ${OLDEST_CONTAINER}"'"'	
 	    echo $RCMD | bash
-	#	echo "Please cleanup environment manually before redeploy"
+	
+#	echo "Please cleanup environment manually before redeploy"
 	
 	#deploy_service  #call deploy_service function
 #	exit -1
@@ -254,4 +255,4 @@ else
 	echo "Deploying service ..."
 	deploy_service  #call deploy_service function
 fi
-   
+#
