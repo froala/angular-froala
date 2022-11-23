@@ -4,7 +4,7 @@ git:
 language: generic
 dist: bionic 
 sudo: required
-  only:
+only:
     - /dev*/
     - /AO-dev*/
     - /QA*/
