@@ -1,34 +1,34 @@
---- 
-before_install: 
-  - "echo $TRAVIS_BRANCH"
-  - "echo $PWD"
-  - "echo $TRAVIS_COMMIT"
-  - "echo $BUILD_REPO_NAME"
-branches: 
-  only: 
+git: 
+  depth: false
+  quiet: false
+language: generic
+dist: bionic 
+sudo: required
+  only:
     - /dev*/
     - /AO-dev*/
     - /QA*/
     - /QE*/
     - /RC*/
     - /Release-Master*/
-dist: bionic
-env: 
-  - "SHORT_COMMIT= `git rev-parse --short=7 ${TRAVIS_COMMIT}`"
-git: 
-  depth: false
-  quiet: false
-jobs: 
-  if: "commit_message =~ /(deploy-yes)/"
-  include: ~
-  script: 
-    - "chmod u+x push-image-to-nexus.sh && bash push-image-to-nexus.sh"
-    - "chmod u+x deploy_sdk.sh && bash deploy_sdk.sh"
-language: generic
-notifications: 
-  email: 
-    on_failure: always
-    on_success: always
-    recipients: 
+
+env:
+- SHORT_COMMIT= `git rev-parse --short=7 ${TRAVIS_COMMIT}`
+
+before_install:
+  - echo $TRAVIS_BRANCH
+  - echo $PWD
+  - echo $TRAVIS_COMMIT
+  - echo $BUILD_REPO_NAME
+jobs:
+  include:
+    if: commit_message =~ /(deploy-yes)/
+    script:
+      - chmod u+x push-image-to-nexus.sh && bash push-image-to-nexus.sh
+      - chmod u+x deploy_sdk.sh && bash deploy_sdk.sh
+notifications:
+  email:
+    recipients:
       - harasunu.narayan@froala.com
-sudo: required
+    on_success: always
+    on_failure: always 
