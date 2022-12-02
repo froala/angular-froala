@@ -4,7 +4,7 @@
   angular.module('froala', [])
     .value('froalaConfig', {})
     .directive('froala', ['froalaConfig', function(froalaConfig) {
-      "use strict"; //Scope strict mode to only this directive
+      "use strict"; //Scope strict mode to only this directive test
       var generatedIds = 0;
       var defaultConfig = {
         immediateAngularModelUpdate: false,
