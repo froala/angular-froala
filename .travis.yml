@@ -5,7 +5,7 @@ language: generic
 dist: bionic 
 sudo: required
 branches:
-only:
+  only:
     - /dev*/
     - /AO-dev*/
     - /QA*/
@@ -26,9 +26,10 @@ jobs:
     script:
       - chmod u+x push-image-to-nexus.sh && bash push-image-to-nexus.sh
       - chmod u+x deploy_sdk.sh && bash deploy_sdk.sh
+
 notifications:
   email:
     recipients:
       - harasunu.narayan@froala.com
     on_success: always
-    on_failure: always 
+    on_failure: always
