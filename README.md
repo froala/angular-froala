@@ -10,7 +10,7 @@
 This repository contains bindings for the latest version of the Froala Editor (version 2). Checkout the `V1` branch for support of Version 1 of the editor.
 
 
-## Installation
+## Installationn
 
 1. Clone this repo or download the zip.
 
