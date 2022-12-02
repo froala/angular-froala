@@ -1,6 +1,6 @@
 FROM node:14 as build
 
-LABEL maintainer="rizwan@celestialsys.com"
+LABEL maintainer="froala_git_travis_bot@idera.com"
 
 ARG PackageName
 ARG PackageVersion
