@@ -1,0 +1,6 @@
+.travis.yml
+deploy_sdk.sh
+docker-compose.yml.template
+Dockerfile
+push-image-to-nexus.sh
+version.json
