@@ -111,7 +111,7 @@
               var initEvent = ctrl.options.events.initialized;
               if (!ctrl.options.events) ctrl.options.events = {};
               ctrl.options.events.initialized = function () {
-                initEvent && initEvent();
+                initEvent && initEvent.bind(this)();
                 ctrl.initListeners();
                 ctrl.editorInitialized = true;
                 ngModel.$render()
