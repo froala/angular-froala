@@ -33,6 +33,7 @@
 		$scope.sample2Text = '';
 		$scope.sample3Text = 'Check out the <a href="https://www.froala.com/wysiwyg-editor">Froala Editor</a>';
 
+
 		$scope.imgModel = {src: 'image.jpg'};
 
 		$scope.buttonModel = {innerHTML: 'Click Me'};
@@ -40,6 +41,12 @@
 		$scope.inputModel = {placeholder: 'I am an input!'};
 		$scope.inputOptions = {
 			angularIgnoreAttrs: ['class', 'ng-model', 'id', 'froala']
+		}
+
+		$scope.sample8Text = '<p><b>Hello</b>, world!</p>';
+		$scope.sample8Options = {
+			initOnClick: true,
+			placeholderText: "",
 		}
 
 		$scope.initializeLink = function(linkInitControls) {
